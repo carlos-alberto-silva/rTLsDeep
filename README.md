@@ -1,12 +1,12 @@
 ![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/wiki_page.png)<br/>
 
-[![CRAN](https://www.r-pkg.org/badges/version/treetop)](https://cran.r-project.org/package=rTLsDeep)
+[![CRAN](https://www.r-pkg.org/badges/version/rTLsDeep)](https://cran.r-project.org/package=rTLsDeep)
 ![Github](https://img.shields.io/badge/Github-0.0.1-green.svg)
 ![licence](https://img.shields.io/badge/Licence-GPL--3-blue.svg) 
 ![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rTLsDeep)
 
 
-**rTLsDeep: An R Package for individual tree-level post-hurricane damage classification from terrestrial laser scanning and deep learning.**
+**rTLsDeep: An R Package for post-hurricane individual tree-level damage classification from terrestrial laser scanning and deep learning.**
 
 Authors: Carine Klauberg, Carlos Alberto Silva, Matheus Ferreira, Ricardo Dalagnol, Eben Broadbent and Jason Vogel.   
 
