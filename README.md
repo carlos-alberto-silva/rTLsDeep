@@ -1,4 +1,4 @@
-![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/master/readme/wiki_page.png)<br/>
+![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/wiki_page.png)<br/>
 
 [![CRAN](https://www.r-pkg.org/badges/version/treetop)](https://cran.r-project.org/package=rTLsDeep)
 ![Github](https://img.shields.io/badge/Github-0.0.1-green.svg)
