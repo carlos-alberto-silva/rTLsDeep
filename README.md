@@ -6,11 +6,11 @@
 ![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rTLsDeep)
 
 
-**rTLsDeep: An R Package for individual tree level post-hurricane damage classification from terrestrial laser scanning and deep learning.**
+**rTLsDeep: An R Package for individual tree-level post-hurricane damage classification from terrestrial laser scanning and deep learning.**
 
 Authors: Carine Klauberg, Carlos Alberto Silva, Matheus Ferreira, Ricardo Dalagnol, Eben Broadbent and Jason Vogel.   
 
-The rTLSDeep package provides options for i) deriving 2D images from TLS point cloud, ii) calibrating and validating deep learning classification models and iii) predicting post-hurricane damage at tree level 
+The rTLSDeep package provides options for i) deriving 2D images from TLS point cloud, ii) calibrating and validating deep learning classification models and iii) predicting post-hurricane damage at the tree-level 
 
 # Getting Started
 
@@ -62,4 +62,3 @@ Klauberg, C. 2021; Silva, C.A.; Ferreira, M.; Dalagnol, R.; Broadbent,E.N.; Voge
 # Disclaimer
 **rTLsDeep has been developed using in R (R Core Team 2021), and it comes with no guarantee, expressed or implied, and the authors hold no responsibility for its use or reliability of its outputs.**
 
-"# rTLsDeep" 
