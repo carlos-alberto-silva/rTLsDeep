@@ -24,7 +24,7 @@ ii) *Git*: https://git-scm.com/
 iii) *Rtools40*: https://cran.r-project.org/bin/windows/Rtools/
 
 
-## Treetop installation
+## rTLsDeep installation
 ```r
 # The CRAN version:
 install.packages("rTLsDeep")
@@ -36,7 +36,7 @@ install_github("https://github.com/carlos-alberto-silva/rTLsDeep", dependencies 
 
 ```    
 
-## Loading and launching treetop application
+## Loading rTLsDeep
 ```r
 library(rTLsDeep)
 
