@@ -47,6 +47,7 @@ library(rgl)
 ## TLS data processing
 
 ### Loading and visualizing TLS dataset 
+<img align="right" src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig1_3d.PNG">
 ```r
 # Path to las file
 lasfile <- system.file("extdata", "tree_c1.laz", package="rTLsDeep")
@@ -59,7 +60,7 @@ plot(las, bg="white")
 rgl::axes3d(c("x+", "y-", "z-"), col="black")
 rgl::grid3d(side=c('x+', 'y-', 'z'), col="gray")
 ```
-<img align="right" src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig1_3d.PNG">
+
 
 
 ### Rotating TLS-derived 3d point cloud 
