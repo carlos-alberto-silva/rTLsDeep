@@ -62,6 +62,7 @@ rgl::axes3d(c("x+", "y-", "z-"), col="black")
 rgl::grid3d(side=c('x+', 'y-', 'z'), col="gray")
 ```
 
+<img align="left" src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/spin3d.gif">
 
 ### Rotating TLS-derived 3d point cloud 
 ```r
@@ -74,7 +75,9 @@ las<-tlsrotate3d(las,theta=120, by="y", scale=TRUE)
 # Rotating around the z-axis
 las<-tlsrotate3d(las,theta=120, by="z", scale=TRUE)
 ```
-<img align="right" src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/spin3d.gif">
+
+
+![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig2_rotation.png)
 
 ### Capturing 2D grid snapshot
 ```r
