@@ -59,7 +59,7 @@ plot(las, bg="white")
 rgl::axes3d(c("x+", "y-", "z-"), col="black")
 rgl::grid3d(side=c('x+', 'y-', 'z'), col="gray")
 ```
-<img align="right" src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig1_3d.png">
+<img align="right" src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig1_3d.PNG">
 
 
 ### Rotating TLS-derived 3d point cloud 
@@ -120,67 +120,69 @@ plot(gtree_c6, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,3
 
 ### Selecting deep learning model properties
 ```r
-#'# Set directory to tensorflow (python environment)
-#'# This is required if running deep learning local computer with GPU
-#'# Guide to install here: https://doi.org/10.5281/zenodo.3929709
-#'tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
-#'
-#'# define model type
-#'#model_type = "simple"
-#'model_type = "vgg"
-#'#model_type = "inception"
-#'#model_type = "resnet"
-#'#model_type = "densenet"
-#'#model_type = "efficientnet"
-#'
-# # Image and model properties
-#'img_width <- 256
-#'img_height <- 256
-#'class_list = as.character(1:6)
-#'lr_rate = 0.0001
-#'target_size <- c(img_width, img_height)
-#'channels <- 4
-#'batch_size = 8L
-#'epochs = 20L
+'# Set directory to tensorflow (python environment)
+# This is required if running deep learning local computer with GPU
+# Guide to install here: https://doi.org/10.5281/zenodo.3929709
+tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
+
+# define model type
+#model_type = "simple"
+model_type = "vgg"
+#model_type = "inception"
+#model_type = "resnet"
+#model_type = "densenet"
+#model_type = "efficientnet"
+
+# Image and model properties
+img_width <- 256
+img_height <- 256
+class_list = as.character(1:6)
+lr_rate = 0.0001
+target_size <- c(img_width, img_height)
+channels <- 4
+batch_size = 8L
+epochs = 20L
+
+
 # path to image folders - black
-#'train_image_files_path <- getwd() # update the path for training datasets
-#'valid_image_files_path <- getwd() # update the path for testing datasets
-#'
-#'# get model
-#'model = get_dl_model(model_type=model_type,
-#'                     img_width=img_width,
-#'                     img_height=img_height,
-#'                     lr_rate = lr_rate,
-#'                     tensorflow_dir = tensorflow_dir,
-#'                     class_list = class_list)
-#'
+train_image_files_path <- getwd() # update the path for training datasets
+valid_image_files_path <- getwd() # update the path for testing datasets
+
+# get model
+model = get_dl_model(model_type=model_type,
+                     img_width=img_width,
+                     img_height=img_height,
+                     lr_rate = lr_rate,
+                     tensorflow_dir = tensorflow_dir,
+                     class_list = class_list)
+
 ```
 ### Model calibration
 ```r
-#'weights_fname = train_treedamage(model = model,
-#'                                 train_input_path = train_image_files_path,
-#'                                 test_input_path = valid_image_files_path,
-#'                                 target_size = target_size,
-#'                                 batch_size = batch_size,
-#'                                 class_list = as.character(1:6),
-#'                                 epochs = epochs,
-#'                                 lr_rate = lr_rate)
-#'
-#'
+weights_fname = train_treedamage(model = model,
+                                 train_input_path = train_image_files_path,
+                                 test_input_path = valid_image_files_path,
+                                target_size = target_size,
+                                 batch_size = batch_size,
+                                 class_list = as.character(1:6),
+                                 epochs = epochs,
+                                 lr_rate = lr_rate)
+
+
 ```
 ### Predicting post-hurricane damage at the tree-level
 ```r
-#'tree_damage<-predict_treedamage(model,
-#'                            input_file_path,
-#'                            weights,
-#'                            target_size = c(256,256),
-#'                            class_list=class_list,
-#'                            batch_size = batch_size)
-#'
+tree_damage<-predict_treedamage(model,
+                            input_file_path,
+                            weights,
+                            target_size = c(256,256),
+                            class_list=class_list,
+                            batch_size = batch_size)
+
 ```
 ### Calculate, print and return confusion matrix
 ```r
-#'cm = confmatrix_treedamage(pred_df = tree_damage, class_list = class_list)
+cm = confmatrix_treedamage(pred_df = tree_damage, class_list = class_list)
 ```
 
 # References
