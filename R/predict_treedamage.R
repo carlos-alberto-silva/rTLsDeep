@@ -2,70 +2,106 @@
 #'
 #'@description This function predicts post-hurricane individual tree-level damage from TLS derived 2D images
 #'
-#'@usage predict_treedamage(file_path, use_model = "vgg", weights_fname, target_size, class_list, batch_size = 8, tensorflow_dir)
+#'@usage predict_treedamage(input_file_path, model, weights, target_size, class_list, batch_size)
 #'
-#'@param file_path A GEDI Level2A object (output of [readLevel2A()] function).
-#'An S4 object of class "gedi.level2a".
-#'@param use_model Numeric. West longitude (x) coordinate of the bounding rectangle, in decimal degrees.
-#'@param weights Character defining the weights based on the name of the output files of function XXXX.
-#'@param target_size Numeric. South latitude (y) coordinate of the bounding rectangle, in decimal degrees.
-#'@param class_list Numeric. North latitude (y) coordinate of the bounding rectangle, in decimal degrees.
-#'@param batch_size Optional character path where to save the new hdf5file. The default stores a temporary file only.
-#'@param tensorflow_dir Optional character path where to save the new hdf5file. The default stores a temporary file only.
+#'@param input_file_path A character string describing the path to the images to predict, e.g.: "C:/test_data/".
+#'@param model_type A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".
+#'@param weights A character string indicating the filename of the weights to use for prediction.
+#'@param target_size A vector of two values describing the image dimensions (Width and height) to be used in the model. Default: c(256,256)
+#'@param batch_size A numerical value indicating the number of images to be processed at the same time. Reduce the batch_size if the GPU is giving memory errors.
+#'@param class_list A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").
+#'@param tensorflow_dir A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709
 #'
-#'@return Returns XXX objects of class XXX containing XXX.
+#'@return Returns a character string with the prediction classes.
 #'
-#'@seealso \url{XXXX}
 #'
 #'@examples
 #'\donttest{
+#'# Set directory to tensorflow (python environment)
+#'# This is required if running deep learning local computer with GPU
+#'# Guide to install here: https://doi.org/10.5281/zenodo.3929709
+#'tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
 #'
-#'close(level2a_clip)
+#'# define model type
+#'#model_type = "simple"
+#'model_type = "vgg"
+#'#model_type = "inception"
+#'#model_type = "resnet"
+#'#model_type = "densenet"
+#'#model_type = "efficientnet"
+#'
+# # Image and model properties
+#'img_width <- 256
+#'img_height <- 256
+#'class_list = as.character(1:6)
+#'lr_rate = 0.0001
+#'target_size <- c(img_width, img_height)
+#'channels <- 4
+#'batch_size = 8L
+#'epochs = 20L
+# path to image folders - black
+#'train_image_files_path <- getwd() # update the path for training datasets
+#'valid_image_files_path <- getwd() # update the path for testing datasets
+#'
+#'# get model
+#'model = get_dl_model(model_type=model_type,
+#'                     img_width=img_width,
+#'                     img_height=img_height,
+#'                     lr_rate = lr_rate,
+#'                     tensorflow_dir = tensorflow_dir,
+#'                     class_list = class_list)
+#'
+#'
+#'# train model and return best weights
+#'weights_fname = train_treedamage(model = model,
+#'                                 train_input_path = train_image_files_path,
+#'                                 test_input_path = valid_image_files_path,
+#'                                 target_size = target_size,
+#'                                 batch_size = batch_size,
+#'                                 class_list = as.character(1:6),
+#'                                 epochs = epochs,
+#'                                 lr_rate = lr_rate)
+#'
+#'
+#'# Predicting post-hurricane damage at the tree-level
+#'tree_damage<-predict_treedamage(model,
+#'                            input_file_path,
+#'                            weights,
+#'                            target_size = c(256,256),
+#'                            class_list=class_list,
+#'                            batch_size = batch_size)
 #'}
+#'@import keras load_model_weights_hdf5 flow_images_from_directory
 #'@export
-predict_treedamage = function(file_path, use_model = "vgg", weights_fname, target_size, class_list, batch_size = 8, tensorflow_dir) {
-  # file_path is the folder containing the images to use for prediction
-  # weights_fname is the filename for the trained weights with .h5 file format
-  # target_size is a two value array c(width, height) with widtht and height used to train the model
-  # class_list is an array of available classes e.g. c(1,2,3,5,6)
-  # batch_size is the number of images processed at the same time, reduce this if the GPU is giving memory errors
-  # tensorflow_dir is the directory for the tensorflow python environment, guide to install here: https://doi.org/10.5281/zenodo.3929709
+predict_treedamage = function(model = model, input_file_path, weights, target_size = c(256,256), class_list, batch_size = 8) {
 
-  # load model
-  model = get_dl_model(use_model, tensorflow_dir = tensorflow_dir, class_list = class_list)
 
   # load weights
-  load_model_weights_hdf5(model, weights_fname)
+  keras::load_model_weights_hdf5(model, weights)
 
   # Validation data shouldn't be augmented! But it should also be scaled.
-  valid_data_gen <- image_data_generator(
+  valid_data_gen <- keras::image_data_generator(
     rescale = 1/255
   )
 
   # validation images
-  valid_image_array_gen <- flow_images_from_directory(file_path,
-                                                      valid_data_gen,
-                                                      shuffle = F,
-                                                      color_mode = "rgba",
-                                                      target_size = target_size,
-                                                      class_mode = "categorical",
-                                                      classes = as.character(class_list),
-                                                      batch = batch_size,
-                                                      seed = 42)
+  valid_image_array_gen <- keras::flow_images_from_directory(input_file_path,
+                                                             valid_data_gen,
+                                                             shuffle = F,
+                                                             color_mode = "rgba",
+                                                             target_size = target_size,
+                                                             class_mode = "categorical",
+                                                             classes = as.character(class_list),
+                                                             batch = batch_size,
+                                                             seed = 42)
 
   # predict for validation dataset
-  predictions <- predict(model, valid_image_array_gen)
+  predictions <- stats::predict(model, valid_image_array_gen)
 
   # get class with max probability
   predict_class = factor(apply(predictions, 1, which.max), levels = class_list)
 
-  # get reference classes based on the paths
-  validation_classes = dirname(list.files(valid_image_files_path, recursive=T))
-
-  # create prediction data frame with prediction and reference class
-  pred_df = data.frame(predict_class = predict_class, ref_class = validation_classes)
-
   # return
-  return(pred_df)
+  return(predict_class)
 
 }

@@ -2,71 +2,72 @@
 #'
 #'@description This function fits deep learning models for post-hurricane individual tree level damage classification using TLS-derived 2D images
 #'
-#'@usage fit_dl_model(use_model, train_image_files_path, valid_image_files_path, target_size, batch_size, class_list, epochs, tensorflow_dir)
+#'@usage fit_dl_model(model_type, train_input_path, test_input_path, target_size, batch_size, class_list, epochs, lr_rate)
 #'
-#'@param use_model A character describing the deep learning model to be used (e.g. "vgg", "resnet", "inception", "densenet", "efficientnet", "simple").
-#'@param train_input_path A character describing the path to the training dataset.
-#'@param test_input_path A character describing the path to the testing dataset.
-#'@param target_size Vector. Rescaled dimensions (Width and height) of the images.
-#'@param batch_size Numeric. Number of images processed at the same time (reduce the batch_size if the GPU is giving memory errors).
-#'@param class_list Vector. Either character or numeric describing the post-hurricane individual tree level damage classes
-#'@param epochs Numeric. Number of times to train the model, at least 20 for pre-trained models, and at least 200 for a model trained from zero
-#'@param tensorflow_dir Character. Directory for the tensorflow python environment, guide to install here: https://doi.org/10.5281/zenodo.3929709
+#'@param model A model object output of the get_dl_model function. See [rTLsDeep::get_dl_model()].
+#'@param train_input_path A character string describing the path to the training dataset, e.g.: "C:/train_data/".
+#'@param test_input_path A character string describing the path to the testing dataset, e.g.: "C:/test_data/".
+#'@param target_size A vector of two values describing the image dimensions (Width and height) to be used in the model. Default: c(256,256)
+#'@param batch_size A numerical value indicating the number of images to be processed at the same time. Reduce the batch_size if the GPU is giving memory errors.
+#'@param class_list A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").
+#'@param epochs A numeric value indicating the number of iterations to train the model. Use at least 20 for pre-trained models, and at least 200 for a model without pre-trained weights.
+#'@param lr_rate A numeric value indicating the learning rate. Default: 0.0001.
 #'
-#'@return Returns XXX objects of class XXX containing XXX.
+#'@return Returns a character string indicating the filename of the best weights trained for the chosen model.
 #'
-#'@seealso \url{XXXX}
 #'
 #'@examples
 #'\donttest{
 #'
-#'# define model
-#'#use_model = "simple"
-#'use_model = "vgg"
-#'#use_model = "inception"
-#'#use_model = "resnet"
-#'#use_model = "densenet"
-#'#use_model = "efficientnet"
+#'# Set directory to tensorflow (python environment)
+#'# This is required if running deep learning local computer with GPU
+#'# Guide to install here: https://doi.org/10.5281/zenodo.3929709
+#'tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
 #'
-# image and DL properties
+#'# define model type
+#'#model_type = "simple"
+#'model_type = "vgg"
+#'#model_type = "inception"
+#'#model_type = "resnet"
+#'#model_type = "densenet"
+#'#model_type = "efficientnet"
+#'
+# # Image and model properties
 #'img_width <- 256
 #'img_height <- 256
-#'target_size <- c(img_width, img_height)
 #'class_list = as.character(1:6)
+#'lr_rate = 0.0001
+#'target_size <- c(img_width, img_height)
 #'channels <- 4
 #'batch_size = 8L
-epochs = 20L
-lr_rate = 0.0001
-
+#'epochs = 20L
 # path to image folders - black
-train_image_files_path <- "D:\\2_Projects\\2_Collab\\58_Carlos_Silva\\1_TLS_treedamage_classification\\new_data_1500\\data_dir_black_1500\\train\\"
-valid_image_files_path <- "D:\\2_Projects\\2_Collab\\58_Carlos_Silva\\1_TLS_treedamage_classification\\new_data_1500\\data_dir_black_1500\\val\\"
-
-# # path to image folders - density
-# train_image_files_path <- "D:\\2_Projects\\2_Collab\\58_Carlos_Silva\\1_TLS_treedamage_classification\\new_data_1500\\data_dir_density_1500\\train\\"
-# valid_image_files_path <- "D:\\2_Projects\\2_Collab\\58_Carlos_Silva\\1_TLS_treedamage_classification\\new_data_1500\\data_dir_density_1500\\val\\"
-
-# # path to image folders - height
-# train_image_files_path <- "D:\\2_Projects\\2_Collab\\58_Carlos_Silva\\1_TLS_treedamage_classification\\new_data_1500\\data_dir_height_1500\\train\\"
-# valid_image_files_path <- "D:\\2_Projects\\2_Collab\\58_Carlos_Silva\\1_TLS_treedamage_classification\\new_data_1500\\data_dir_height_1500\\val\\"
-
-# train model and return best weights
-weights_fname = train_treedamage(use_model = use_model, train_image_files_path = train_image_files_path, valid_image_files_path = valid_image_files_path, target_size = target_size, batch_size = batch_size, class_list = class_list, epochs = epochs, tensorflow_dir = tensorflow_dir)
-
+#'train_image_files_path <- getwd() # update the path for training datasets
+#'valid_image_files_path <- getwd() # update the path for testing datasets
+#'
+#'# get model
+#'model = get_dl_model(model_type=model_type,
+#'                     img_width=img_width,
+#'                     img_height=img_height,
+#'                     lr_rate = lr_rate,
+#'                     tensorflow_dir = tensorflow_dir,
+#'                     class_list = class_list)
+#'
+#'
+#'# train model and return best weights
+#'weights_fname = train_treedamage(model = model,
+#'                                 train_input_path = train_image_files_path,
+#'                                 test_input_path = valid_image_files_path,
+#'                                 target_size = target_size,
+#'                                 batch_size = batch_size,
+#'                                 class_list = as.character(1:6),
+#'                                 epochs = epochs,
+#'                                 lr_rate = lr_rate)
+#'
 #'}
+#'@import keras image_data_generator flow_images_from_directory fit_generator callback_csv_logger callback_model_checkpoint
 #'@export
-fit_dl_model = function(use_model, train_image_files_path, valid_image_files_path, target_size, batch_size = 8, class_list, epochs = 20L, tensorflow_dir) {
-  # use_model is the desired model, available: vgg, resnet, inception, densenet, efficientnet, simple
-  # train_image_files_path is the folder with the training images, there must be folders for the class names e.g. 1, 2, 3, 4, 5, 6
-  # valid_image_files_path is the folder with the validation images, there must be folders for the class names e.g. 1, 2, 3, 4, 5, 6
-  # target_size is a two value array c(width, height) with width and height used to train the model
-  # batch_size is the number of images processed at the same time, reduce this if the GPU is giving memory errors
-  # class_list is an array of available classes e.g. c(1,2,3,5,6)
-  # epochs is the number of times to train the model, at least 20 for pre-trained models, and at least 200 for a model trained from zero
-  # tensorflow_dir is the directory for the tensorflow python environment, guide to install here: https://doi.org/10.5281/zenodo.3929709
-
-  # load model
-  model = get_dl_model(use_model, tensorflow_dir = tensorflow_dir, class_list = class_list)
+fit_dl_model = function(model, train_input_path, test_input_path, target_size = c(256,256), batch_size = 8, class_list, epochs = 20L, lr_rate = 0.0001) {
 
   # get number of classes
   output_n = length(class_list)
@@ -74,7 +75,7 @@ fit_dl_model = function(use_model, train_image_files_path, valid_image_files_pat
   ## Data generator
 
   # optional data augmentation
-  train_data_gen = image_data_generator(
+  train_data_gen = keras::image_data_generator(
     rescale = 1/255,
     #rotation_range = 40,
     width_shift_range = 0.2,
@@ -86,30 +87,30 @@ fit_dl_model = function(use_model, train_image_files_path, valid_image_files_pat
   )
 
   # Validation data shouldn't be augmented! But it should also be scaled.
-  valid_data_gen <- image_data_generator(
+  valid_data_gen <- keras::image_data_generator(
     rescale = 1/255
   )
 
   # training images
-  train_image_array_gen <- flow_images_from_directory(train_image_files_path,
-                                                      train_data_gen,
-                                                      color_mode = "rgba",
-                                                      target_size = target_size,
-                                                      class_mode = "categorical",
-                                                      classes = class_list,
-                                                      batch = batch_size,
-                                                      seed = 42)
+  train_image_array_gen <- keras::flow_images_from_directory(train_input_path,
+                                                             train_data_gen,
+                                                             color_mode = "rgba",
+                                                             target_size = target_size,
+                                                             class_mode = "categorical",
+                                                             classes = class_list,
+                                                             batch = batch_size,
+                                                             seed = 42)
 
   # validation images
-  valid_image_array_gen <- flow_images_from_directory(valid_image_files_path,
-                                                      valid_data_gen,
-                                                      shuffle = F,
-                                                      color_mode = "rgba",
-                                                      target_size = target_size,
-                                                      class_mode = "categorical",
-                                                      classes = class_list,
-                                                      batch = batch_size,
-                                                      seed = 42)
+  valid_image_array_gen <- keras::flow_images_from_directory(test_input_path,
+                                                             valid_data_gen,
+                                                             shuffle = F,
+                                                             color_mode = "rgba",
+                                                             target_size = target_size,
+                                                             class_mode = "categorical",
+                                                             classes = class_list,
+                                                             batch = batch_size,
+                                                             seed = 42)
   cat("Number of images per class:")
 
   table(factor(train_image_array_gen$classes))
@@ -139,7 +140,7 @@ fit_dl_model = function(use_model, train_image_files_path, valid_image_files_pat
   tf$keras$mixed_precision$experimental$set_policy('mixed_float16')
 
   # fit
-  hist <- model %>% fit_generator(
+  hist <- model %>% keras::fit_generator(
     # training data
     train_image_array_gen,
 
@@ -153,17 +154,11 @@ fit_dl_model = function(use_model, train_image_files_path, valid_image_files_pat
 
     # print progress
     verbose = 2,
-    # callbacks = list(
-    #   # save best model after every epoch
-    #   callback_model_checkpoint("weights", save_best_only = TRUE),
-    #   # only needed for visualising with TensorBoard
-    #   callback_tensorboard(log_dir = "epoch_history")
-    # )
     callbacks_list <- list(
-      callback_csv_logger("./epoch_history/epoch_history.csv", separator = ";", append = FALSE),
-      callback_model_checkpoint(filepath = paste0("./weights/", use_model, "_tf2_{epoch:05d}_{val_accuracy:.4f}.h5"),
-                                monitor = "val_accuracy",save_best_only = TRUE,
-                                save_weights_only = TRUE, mode = "max" ,save_freq = NULL)
+      keras::callback_csv_logger("./epoch_history/epoch_history.csv", separator = ";", append = FALSE),
+      keras::callback_model_checkpoint(filepath = paste0("./weights/", model_type, "_tf2_{epoch:05d}_{val_accuracy:.4f}.h5"),
+                                       monitor = "val_accuracy",save_best_only = TRUE,
+                                       save_weights_only = TRUE, mode = "max" ,save_freq = NULL)
     )
   )
 
