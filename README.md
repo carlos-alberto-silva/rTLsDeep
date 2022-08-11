@@ -55,9 +55,11 @@ lasfile <- system.file("extdata", "tree_c1.laz", package="rTLsDeep")
 las<-readLAS(lasfile)
 
 # plotting las file in 3D
-plot(las)
+plot(las, bg="white")
+rgl::axes3d(c("x+", "y-", "z-"), col="black")
+rgl::grid3d(side=c('x+', 'y-', 'z'), col="gray")
 ```
-<img src="https://github.com/carlos-alberto-silva/weblidar-treetop/blob/master/readme/rTLsDeep.gif">
+<img align="right" src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig1_3d.png">
 
 
 ### Rotating TLS-derived 3d point cloud 
@@ -71,8 +73,7 @@ las<-tlsrotate3d(las,theta=120, by="y", scale=TRUE)
 # Rotating around the z-axis
 las<-tlsrotate3d(las,theta=120, by="z", scale=TRUE)
 ```
-![](https://github.com/carlos-alberto-silva/ForestGapR/blob/master/readme/spin3d.gif)
-
+<img align="right" src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/spin3d.gif">
 
 ### Capturing 2D grid snapshot
 ```r
@@ -113,7 +114,7 @@ plot(gtree_c4, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,3
 plot(gtree_c5, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C5",cex=2)
 plot(gtree_c6, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C6",cex=2)
 ```
-![](https://github.com/carlos-alberto-silva/ForestGapR/blob/master/readme/fig3_trees.png)
+![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig3_trees.png)
 
 ## Post-hurricane individual tree-level damanage using deep learning 
 
