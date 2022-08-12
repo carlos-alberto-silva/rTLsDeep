@@ -166,7 +166,7 @@ model = get_dl_model(model_type=model_type,
 weights_fname = train_treedamage(model = model,
                                  train_input_path = train_image_files_path,
                                  test_input_path = valid_image_files_path,
-                                target_size = target_size,
+                                 target_size = target_size,
                                  batch_size = batch_size,
                                  class_list = as.character(1:6),
                                  epochs = epochs,
@@ -176,9 +176,9 @@ weights_fname = train_treedamage(model = model,
 ```
 ### Predicting post-hurricane damage at the tree-level
 ```r
-tree_damage<-predict_treedamage(model,
-                            input_file_path,
-                            weights,
+tree_damage<-predict_treedamage(model = model,
+                            input_file_path = getwd(),
+                            weights = weights,
                             target_size = c(256,256),
                             class_list=class_list,
                             batch_size = batch_size)
@@ -193,7 +193,7 @@ cm = confmatrix_treedamage(pred_df = tree_damage, class_list = class_list)
 R Core Team. (2021). R: A Language and Environment for Statistical Computing; R Core Team: Vienna, Austria. https://www.r-project.org/
 
 # Acknowledgements
-We gratefully acknowledge funding from the XXX and XXX, grant XXX  and XXX. 
+We gratefully acknowledge funding from NIFA Award # 2020-67030-30714.
 
 # Reporting Issues 
 Please report any issue regarding the rTLsDeep package to Dr. *Carlos A. Silva* (c.silva@ufl.edu; maintainer)

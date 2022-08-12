@@ -64,9 +64,9 @@
 #'
 #'
 #'# Predicting post-hurricane damage at the tree-level
-#'tree_damage<-predict_treedamage(model,
-#'                            input_file_path,
-#'                            weights,
+#'tree_damage<-predict_treedamage(model=model,
+#'                            input_file_path=getwd(),
+#'                            weights=weights,
 #'                            target_size = c(256,256),
 #'                            class_list=class_list,
 #'                            batch_size = batch_size)
