@@ -124,7 +124,7 @@ plot(gtree_c6, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,3
 
 ### Selecting deep learning model properties
 ```r
-'# Set directory to tensorflow (python environment)
+# Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
 tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
@@ -189,7 +189,7 @@ tree_damage<-predict_treedamage(model = model,
 # Calculate confusion matrix
 cm = confmatrix_treedamage(pred_df = tree_damage, class_list = class_list)
 
-#Plot confusion matrix
+# Plot confusion matrix
 gcmplot_vgg<-gcmplot(cm,
                      colors=c(low="white", high="#009194"),
                      title="densenet")
