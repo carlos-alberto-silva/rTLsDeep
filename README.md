@@ -187,7 +187,13 @@ tree_damage<-predict_treedamage(model = model,
 ### Calculate, print and return confusion matrix
 ```r
 cm = confmatrix_treedamage(pred_df = tree_damage, class_list = class_list)
+
+#Plot confusion matrix
+gcmplot_vgg<-gcmplot(cm_vgg,
+                     colors=c(low="white", high="#009194"),
+                     title="densenet")
 ```
+![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/cm.png)
 
 # References
 R Core Team. (2021). R: A Language and Environment for Statistical Computing; R Core Team: Vienna, Austria. https://www.r-project.org/
