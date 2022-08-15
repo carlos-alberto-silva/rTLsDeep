@@ -184,12 +184,13 @@ tree_damage<-predict_treedamage(model = model,
                             batch_size = batch_size)
 
 ```
-### Calculate, print and return confusion matrix
+### Confusion matrix
 ```r
+# Calculate confusion matrix
 cm = confmatrix_treedamage(pred_df = tree_damage, class_list = class_list)
 
 #Plot confusion matrix
-gcmplot_vgg<-gcmplot(cm_vgg,
+gcmplot_vgg<-gcmplot(cm,
                      colors=c(low="white", high="#009194"),
                      title="densenet")
 ```
