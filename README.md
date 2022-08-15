@@ -31,16 +31,15 @@ install.packages("rTLsDeep")
 #install.packages("remotes")
 library(remotes)
 install_github("https://github.com/carlos-alberto-silva/rTLsDeep", dependencies = TRUE)
-
-# Packman:
-#install.packages("packman")
-
 ```    
 
 ## Getting Started
 
 ### Loading rTLsDeep
 ```r
+# get packman
+install.packages("packman")
+
 library(pacman)
 p_load(lidR,rTLsDeep,rgl,ggplot2,rgl,keras,reticulate,compiler)
 ```
