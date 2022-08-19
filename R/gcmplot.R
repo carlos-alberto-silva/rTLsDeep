@@ -25,7 +25,7 @@
 #'                     colors=c(low="white", high="#009194"),
 #'                     title="densenet")
 #'
-#'@import ggplot2 ggplot
+#'@importFrom ggplot2 ggplot
 #'@export
 #'
 #'

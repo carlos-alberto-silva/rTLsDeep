@@ -25,8 +25,8 @@
 #'tensorflow_dir = "C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow"
 #'
 #'# define model type
-#'#model_type = "simple"
-#'model_type = "vgg"
+#'model_type = "simple"
+#'#model_type = "vgg"
 #'#model_type = "inception"
 #'#model_type = "resnet"
 #'#model_type = "densenet"
@@ -47,9 +47,8 @@
 #'                     class_list = class_list)
 #'
 #'}
-#'@import keras layer_input layer_conv_2d layer_activation layer_activation_leaky_relu layer_batch_normalization layer_max_pooling_2d layer_dropout layer_flatten layer_dense keras_model application_vgg16 application_resnet152_v2 application_inception_v3 application_densenet201 application_efficientnet_b7 optimizer_adam
-#'@import reticulate use_python
-#'@import compiler compile
+#'@importFrom keras layer_input layer_conv_2d layer_activation layer_activation_leaky_relu layer_batch_normalization layer_max_pooling_2d layer_dropout layer_flatten layer_dense keras_model application_vgg16 application_resnet152_v2 application_inception_v3 application_densenet201 application_efficientnet_b7 optimizer_adam compile %>%
+#'@importFrom reticulate use_python
 #'@export
 get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, lr_rate = 0.0001, tensorflow_dir, class_list) {
 
@@ -94,7 +93,7 @@ get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, l
 
     # put model together
     model <- keras::keras_model(inputs, outputs)
-    model %>% compiler::compile(
+    model %>% keras::compile(
       loss = "categorical_crossentropy",
       optimizer = keras::optimizer_adam(learning_rate = lr_rate),
       metrics = "accuracy"
@@ -143,7 +142,7 @@ get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, l
 
     # put model together
     model <- keras::keras_model(inputs, outputs)
-    model %>% compiler::compile(
+    model %>% keras::compile(
       loss = "categorical_crossentropy",
       optimizer = keras::optimizer_adam(learning_rate = lr_rate),
       metrics = "accuracy"

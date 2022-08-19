@@ -20,8 +20,8 @@
 #'tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
 #'
 #'# define model type
-#'#model_type = "simple"
-#'model_type = "vgg"
+#'model_type = "simple"
+#'#model_type = "vgg"
 #'#model_type = "inception"
 #'#model_type = "resnet"
 #'#model_type = "densenet"
@@ -50,7 +50,7 @@
 #'
 #'
 #'# train model and return best weights
-#'weights_fname = train_treedamage(model = model,
+#'weights_fname = fit_dl_model(model = model,
 #'                                 train_input_path = train_image_files_path,
 #'                                 test_input_path = valid_image_files_path,
 #'                                 target_size = target_size,
@@ -76,7 +76,7 @@
 #'                           validation_classes=validation_classes,
 #'                           class_list = class_list)
 #'}
-#'@import caret confusionMatrix
+#'@importFrom caret confusionMatrix
 #'@export
 confmatrix_treedamage = function(predict_class, validation_classes, class_list) {
 

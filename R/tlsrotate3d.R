@@ -34,7 +34,7 @@
 #'  rgl::play3d(spin3d(axis = c(0, 0, 1), rpm = 5), duration = 10)
 #'
 #'}
-#'@import rgl rotate3d
+#'@importFrom rgl rotate3d
 #'@export
 tlsrotate3d<-function(las,theta, by="z",scale=TRUE) {
 

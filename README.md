@@ -163,7 +163,7 @@ model = get_dl_model(model_type=model_type,
 ```
 ### Model calibration
 ```r
-weights_fname = train_treedamage(model = model,
+weights_fname = fit_dl_model(model = model,
                                  train_input_path = train_image_files_path,
                                  test_input_path = valid_image_files_path,
                                  target_size = target_size,

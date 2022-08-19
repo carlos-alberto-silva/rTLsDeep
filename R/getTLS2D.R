@@ -41,7 +41,7 @@
 #'# Visualizing 2D grid snapshot
 #'plot(g, asp=TRUE, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="")
 #'}
-#'@import lidR pixel_metrics
+#'@importFrom lidR pixel_metrics
 #'@export
 getTLS2D<-function(las, res=0.05, by="xz", func = ~list(Z = max(Z)), scale=TRUE) {
 

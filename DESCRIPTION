@@ -14,10 +14,9 @@ License: GPL-3
 Encoding: UTF-8
 Imports:
   lidR,
-  data.table,
+  ggplot2,
   keras,
   reticulate,
-  compiler,
   caret,
   rgl
-
+RoxygenNote: 7.2.0

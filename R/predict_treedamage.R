@@ -23,8 +23,8 @@
 #'tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
 #'
 #'# define model type
-#'#model_type = "simple"
-#'model_type = "vgg"
+#'model_type = "simple"
+#'#model_type = "vgg"
 #'#model_type = "inception"
 #'#model_type = "resnet"
 #'#model_type = "densenet"
@@ -53,7 +53,7 @@
 #'
 #'
 #'# train model and return best weights
-#'weights_fname = train_treedamage(model = model,
+#'weights_fname = fit_dl_model(model = model,
 #'                                 train_input_path = train_image_files_path,
 #'                                 test_input_path = valid_image_files_path,
 #'                                 target_size = target_size,
@@ -71,7 +71,7 @@
 #'                            class_list=class_list,
 #'                            batch_size = batch_size)
 #'}
-#'@import keras load_model_weights_hdf5 flow_images_from_directory
+#'@importFrom keras load_model_weights_hdf5 flow_images_from_directory
 #'@export
 predict_treedamage = function(model = model, input_file_path, weights, target_size = c(256,256), class_list, batch_size = 8) {
 
