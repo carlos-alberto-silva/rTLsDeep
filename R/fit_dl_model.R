@@ -5,6 +5,7 @@
 #'@usage fit_dl_model(model_type, train_input_path, test_input_path, target_size, batch_size, class_list, epochs, lr_rate)
 #'
 #'@param model A model object output of the get_dl_model function. See [rTLsDeep::get_dl_model()].
+#'@param model_type A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".
 #'@param train_input_path A character string describing the path to the training dataset, e.g.: "C:/train_data/".
 #'@param test_input_path A character string describing the path to the testing dataset, e.g.: "C:/test_data/".
 #'@param target_size A vector of two values describing the image dimensions (Width and height) to be used in the model. Default: c(256,256)
@@ -55,7 +56,7 @@
 #'
 #'
 #'# train model and return best weights
-#'weights_fname = fit_dl_model(model = model,
+#'weights_fname = fit_dl_model(model = model$model,
 #'                                 train_input_path = train_image_files_path,
 #'                                 test_input_path = valid_image_files_path,
 #'                                 target_size = target_size,
@@ -137,7 +138,7 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
   ## Train the model
 
   # mixed precision
-  tf$keras$mixed_precision$experimental$set_policy('mixed_float16')
+  tensorflow::tf$keras$mixed_precision$experimental$set_policy('mixed_float16')
 
   # fit
   hist <- model %>% keras::fit_generator(
@@ -156,7 +157,7 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
     verbose = 2,
     callbacks_list <- list(
       keras::callback_csv_logger("./epoch_history/epoch_history.csv", separator = ";", append = FALSE),
-      keras::callback_model_checkpoint(filepath = paste0("./weights/", model_type, "_tf2_{epoch:05d}_{val_accuracy:.4f}.h5"),
+      keras::callback_model_checkpoint(filepath = paste0("./weights/", model$model_type, "_tf2_{epoch:05d}_{val_accuracy:.4f}.h5"),
                                        monitor = "val_accuracy",save_best_only = TRUE,
                                        save_weights_only = TRUE, mode = "max" ,save_freq = NULL)
     )

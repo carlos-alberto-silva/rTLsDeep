@@ -35,13 +35,14 @@ install_github("https://github.com/carlos-alberto-silva/rTLsDeep", dependencies 
 
 ## Getting Started
 
-### Loading rTLsDeep
+### Loading rTLsDeep and other required packages
 ```r
 # get packman
 install.packages("packman")
 
+#load pcaman and all packages
 library(pacman)
-p_load(lidR,rTLsDeep,rgl,ggplot2,rgl,keras,reticulate,compiler)
+p_load(rTLsDeep,lidR,rgl,ggplot2,rgl,keras,reticulate,compiler)
 ```
 
 ## TLS data processing
@@ -163,7 +164,7 @@ model = get_dl_model(model_type=model_type,
 ```
 ### Model calibration
 ```r
-weights_fname = fit_dl_model(model = model,
+weights_fname = train_treedamage(model = model,
                                  train_input_path = train_image_files_path,
                                  test_input_path = valid_image_files_path,
                                  target_size = target_size,

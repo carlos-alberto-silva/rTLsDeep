@@ -12,9 +12,7 @@
 #'@param lr_rate A numeric value indicating the learning rate. Default: 0.0001.
 #'@param tensorflow_dir A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709
 #'
-#'@return Returns the model object with the required parameters.
-#'
-#'@seealso \url{XXXX}
+#'@return Returns a list containing the model object with the required parameters and model_type used.
 #'
 #'@examples
 #'\donttest{
@@ -153,6 +151,6 @@ get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, l
 
   }
 
-  return(model)
+  return(list(model=model, model_type=model_type))
 
 }

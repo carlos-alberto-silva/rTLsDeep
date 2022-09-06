@@ -19,4 +19,4 @@ Imports:
   reticulate,
   caret,
   rgl
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
