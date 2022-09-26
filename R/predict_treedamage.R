@@ -53,7 +53,7 @@
 #'
 #'
 #'# train model and return best weights
-#'weights_fname = fit_dl_model(model = model$model,
+#'weights_fname = fit_dl_model(model = model,
 #'                                 train_input_path = train_image_files_path,
 #'                                 test_input_path = valid_image_files_path,
 #'                                 target_size = target_size,
@@ -64,7 +64,7 @@
 #'
 #'
 #'# Predicting post-hurricane damage at the tree-level
-#'tree_damage<-predict_treedamage(model=model$model,
+#'tree_damage<-predict_treedamage(model=model,
 #'                            input_file_path=getwd(),
 #'                            weights=weights,
 #'                            target_size = c(256,256),
@@ -88,7 +88,7 @@ predict_treedamage = function(model , input_file_path, weights, target_size = c(
   valid_image_array_gen <- keras::flow_images_from_directory(input_file_path,
                                                              valid_data_gen,
                                                              shuffle = F,
-                                                             color_mode = "rgba",
+                                                             color_mode = "rgb",
                                                              target_size = target_size,
                                                              class_mode = "categorical",
                                                              classes = as.character(class_list),

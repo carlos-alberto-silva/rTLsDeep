@@ -56,7 +56,7 @@
 #'
 #'
 #'# train model and return best weights
-#'weights_fname = fit_dl_model(model = model$model,
+#'weights_fname = fit_dl_model(model = model,
 #'                                 train_input_path = train_image_files_path,
 #'                                 test_input_path = valid_image_files_path,
 #'                                 target_size = target_size,
@@ -72,6 +72,9 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
 
   # get number of classes
   output_n = length(class_list)
+
+  # define pipe
+  `%>%` <- keras::`%>%`
 
   ## Data generator
 
@@ -95,7 +98,7 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
   # training images
   train_image_array_gen <- keras::flow_images_from_directory(train_input_path,
                                                              train_data_gen,
-                                                             color_mode = "rgba",
+                                                             color_mode = "rgb",
                                                              target_size = target_size,
                                                              class_mode = "categorical",
                                                              classes = class_list,
@@ -106,7 +109,7 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
   valid_image_array_gen <- keras::flow_images_from_directory(test_input_path,
                                                              valid_data_gen,
                                                              shuffle = F,
-                                                             color_mode = "rgba",
+                                                             color_mode = "rgb",
                                                              target_size = target_size,
                                                              class_mode = "categorical",
                                                              classes = class_list,
@@ -140,33 +143,28 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
   # mixed precision
   tensorflow::tf$keras$mixed_precision$experimental$set_policy('mixed_float16')
 
-  # fit
-  hist <- model %>% keras::fit_generator(
-    # training data
-    train_image_array_gen,
-
-    # epochs
-    steps_per_epoch = as.integer(train_samples / batch_size),
-    epochs = epochs,
-
-    # validation data
-    validation_data = valid_image_array_gen,
-    validation_steps = as.integer(valid_samples / batch_size),
-
-    # print progress
-    verbose = 2,
-    callbacks_list <- list(
-      keras::callback_csv_logger("./epoch_history/epoch_history.csv", separator = ";", append = FALSE),
-      keras::callback_model_checkpoint(filepath = paste0("./weights/", model$model_type, "_tf2_{epoch:05d}_{val_accuracy:.4f}.h5"),
-                                       monitor = "val_accuracy",save_best_only = TRUE,
-                                       save_weights_only = TRUE, mode = "max" ,save_freq = NULL)
-    )
+  # call backs
+  callbacks_list = list(
+    keras::callback_csv_logger(paste0("./epoch_history/epoch_history.csv"), separator = ";", append = FALSE),
+    keras::callback_model_checkpoint(filepath = paste0("./weights/model_{epoch:05d}_{val_accuracy:.4f}.h5"),
+                                     monitor = "val_accuracy",save_best_only = TRUE,
+                                     save_weights_only = TRUE, mode = "max" ,save_freq = NULL)
   )
+
+  # fit model
+  hist = keras::fit(model,
+                    train_image_array_gen,
+                    steps_per_epoch = as.integer(train_samples / batch_size),
+                    validation_data = valid_image_array_gen,
+                    validation_steps = as.integer(valid_samples / batch_size),
+                    epochs = epochs,
+                    workers = 1,
+                    callbacks = callbacks_list)
 
 
   # clear GPU
-  tf$keras.backend$clear_session()
-  py_gc <- import('gc')
+  tensorflow::tf$keras.backend$clear_session()
+  py_gc <- reticulate::import('gc')
   py_gc$collect()
 
   # copy the best weight to the save folder

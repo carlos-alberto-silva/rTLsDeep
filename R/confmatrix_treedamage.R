@@ -50,7 +50,7 @@
 #'
 #'
 #'# train model and return best weights
-#'weights_fname = fit_dl_model(model = model,$model
+#'weights_fname = fit_dl_model(model = model,
 #'                                 train_input_path = train_image_files_path,
 #'                                 test_input_path = valid_image_files_path,
 #'                                 target_size = target_size,
@@ -61,7 +61,7 @@
 #'
 #'
 #'# Predicting post-hurricane damage at the tree-level
-#'tree_damage<-predict_treedamage(model=model$model,
+#'tree_damage<-predict_treedamage(model=model,
 #'                            input_file_path=getwd(),
 #'                            weights=weights,
 #'                            target_size = c(256,256),
@@ -72,7 +72,7 @@
 #'validation_classes<-get_validation_classes(file_path=getwd(), class_list)
 #'
 #'# Calculate, print and return confusion matrix
-#'cm = confmatrix_treedamage(pred_df = tree_damage,
+#'cm = confmatrix_treedamage(predict_class = tree_damage,
 #'                           validation_classes=validation_classes,
 #'                           class_list = class_list)
 #'}

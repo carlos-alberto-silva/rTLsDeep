@@ -51,11 +51,13 @@
 get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, lr_rate = 0.0001, tensorflow_dir, class_list) {
 
   # define tensorflow python environment
-  reticulate::use_python(tensorflow_dir, required = T)
+  #reticulate::use_python(tensorflow_dir, required = T)
 
   # number of classes
   output_n = length(class_list)
 
+  # define pipe
+  `%>%` <- keras::`%>%`
 
   # simple cnn model (https://shirinsplayground.netlify.app/2018/06/keras_fruits/)
 
@@ -151,6 +153,6 @@ get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, l
 
   }
 
-  return(list(model=model, model_type=model_type))
+  return(model)
 
 }
