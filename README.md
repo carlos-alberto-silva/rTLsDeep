@@ -38,7 +38,7 @@ install_github("https://github.com/carlos-alberto-silva/rTLsDeep", dependencies 
 ### Loading rTLsDeep and other required packages
 ```r
 # get pacman
-install.packages("packman")
+install.packages("pacman")
 
 #load pcaman and all packages
 library(pacman)
