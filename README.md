@@ -37,7 +37,7 @@ install_github("https://github.com/carlos-alberto-silva/rTLsDeep", dependencies 
 
 ### Loading rTLsDeep and other required packages
 ```r
-# get packman
+# get pacman
 install.packages("packman")
 
 #load pcaman and all packages
@@ -128,7 +128,7 @@ plot(gtree_c6, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,3
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
+tensorflow_dir = '/apps/tensorflow/2.6.0'
 
 # define model type
 #model_type = "simple"
@@ -138,10 +138,15 @@ model_type = "vgg"
 #model_type = "densenet"
 #model_type = "efficientnet"
 
+# path to image folders - black
+train_image_files_path <- getwd() # update the path for training datasets
+test_image_files_path <- getwd() # update the path for testing datasets
+
 # Image and model properties
 img_width <- 256
 img_height <- 256
-class_list = as.character(1:6)
+class_list_train = unique(list.files(train_image_files_path))
+class_list_test = unique(list.files(test_image_files_path))
 lr_rate = 0.0001
 target_size <- c(img_width, img_height)
 channels <- 4
@@ -149,27 +154,23 @@ batch_size = 8L
 epochs = 20L
 
 
-# path to image folders - black
-train_image_files_path <- getwd() # update the path for training datasets
-valid_image_files_path <- getwd() # update the path for testing datasets
-
 # get model
 model = get_dl_model(model_type=model_type,
                      img_width=img_width,
                      img_height=img_height,
                      lr_rate = lr_rate,
                      tensorflow_dir = tensorflow_dir,
-                     class_list = class_list)
+                     class_list = class_list_train)
 
 ```
 ### Model calibration
 ```r
 weights_fname = train_treedamage(model = model,
                                  train_input_path = train_image_files_path,
-                                 test_input_path = valid_image_files_path,
+                                 test_input_path = test_image_files_path,
                                  target_size = target_size,
                                  batch_size = batch_size,
-                                 class_list = as.character(1:6),
+                                 class_list = class_list_train,
                                  epochs = epochs,
                                  lr_rate = lr_rate)
 
@@ -178,18 +179,21 @@ weights_fname = train_treedamage(model = model,
 ### Predicting post-hurricane damage at the tree-level
 ```r
 tree_damage<-predict_treedamage(model = model,
-                            input_file_path = getwd(),
+                            input_file_path = test_image_files_path,
                             weights = weights,
                             target_size = c(256,256),
-                            class_list=class_list,
+                            class_list=class_list_test,
                             batch_size = batch_size)
-
 ```
 ### Confusion matrix
 ```r
-# Calculate confusion matrix
-cm = confmatrix_treedamage(pred_df = tree_damage, class_list = class_list)
+# Get damage classes for validation datasets
+test_classes<-get_test_classes(file_path=test_image_files_path)
 
+# Calculate confusion matrix
+cm = confmatrix_treedamage(predict_class = tree_damage,
+                           test_classes=test_classes,
+                           class_list = class_list_test)
 # Plot confusion matrix
 gcmplot_vgg<-gcmplot(cm,
                      colors=c(low="white", high="#009194"),

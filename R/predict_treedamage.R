@@ -20,7 +20,7 @@
 #'# Set directory to tensorflow (python environment)
 #'# This is required if running deep learning local computer with GPU
 #'# Guide to install here: https://doi.org/10.5281/zenodo.3929709
-#'tensorflow_dir = 'C:\\ProgramData\\Miniconda3\\envs\\r-tensorflow'
+#'tensorflow_dir = '/apps/tensorflow/2.6.0'
 #'
 #'# define model type
 #'model_type = "simple"
@@ -31,17 +31,18 @@
 #'#model_type = "efficientnet"
 #'
 # # Image and model properties
+# path to image folders - black
+#'train_image_files_path <- getwd() # update the path for training datasets
+#'test_image_files_path <- getwd() # update the path for testing datasets
 #'img_width <- 256
 #'img_height <- 256
-#'class_list = as.character(1:6)
+#'class_list_train = unique(list.files(train_image_files_path))
+#'class_list_test = unique(list.files(test_image_files_path))
 #'lr_rate = 0.0001
 #'target_size <- c(img_width, img_height)
 #'channels <- 4
 #'batch_size = 8L
 #'epochs = 20L
-# path to image folders - black
-#'train_image_files_path <- getwd() # update the path for training datasets
-#'valid_image_files_path <- getwd() # update the path for testing datasets
 #'
 #'# get model
 #'model = get_dl_model(model_type=model_type,
@@ -49,27 +50,28 @@
 #'                     img_height=img_height,
 #'                     lr_rate = lr_rate,
 #'                     tensorflow_dir = tensorflow_dir,
-#'                     class_list = class_list)
+#'                     class_list = class_list_train)
 #'
 #'
 #'# train model and return best weights
-#'weights_fname = fit_dl_model(model = model,
+#'weights = fit_dl_model(model = model,
 #'                                 train_input_path = train_image_files_path,
-#'                                 test_input_path = valid_image_files_path,
+#'                                 test_input_path = test_image_files_path,
 #'                                 target_size = target_size,
 #'                                 batch_size = batch_size,
-#'                                 class_list = as.character(1:6),
+#'                                 class_list = lass_list_train,
 #'                                 epochs = epochs,
 #'                                 lr_rate = lr_rate)
 #'
 #'
 #'# Predicting post-hurricane damage at the tree-level
 #'tree_damage<-predict_treedamage(model=model,
-#'                            input_file_path=getwd(),
+#'                            input_file_path=test_image_files_path,
 #'                            weights=weights,
 #'                            target_size = c(256,256),
-#'                            class_list=class_list,
+#'                            class_list=class_list_test,
 #'                            batch_size = batch_size)
+#'
 #'}
 #'@importFrom keras load_model_weights_hdf5 flow_images_from_directory
 #'@export
@@ -77,7 +79,7 @@ predict_treedamage = function(model , input_file_path, weights, target_size = c(
 
 
   # load weights
-  keras::load_model_weights_hdf5(model, weights)
+  keras::load_model_weights_hdf5(model,weights)
 
   # Validation data shouldn't be augmented! But it should also be scaled.
   valid_data_gen <- keras::image_data_generator(
@@ -91,15 +93,17 @@ predict_treedamage = function(model , input_file_path, weights, target_size = c(
                                                              color_mode = "rgb",
                                                              target_size = target_size,
                                                              class_mode = "categorical",
-                                                             classes = as.character(class_list),
+                                                             classes = class_list,
                                                              batch = batch_size,
                                                              seed = 42)
 
   # predict for validation dataset
   predictions <- stats::predict(model, valid_image_array_gen)
 
+  label<-unique(gsub('[[:digit:]]+', '', class_list))
+
   # get class with max probability
-  predict_class = factor(apply(predictions, 1, which.max), levels = class_list)
+  predict_class = factor(paste0(label,apply(predictions, 1, which.max)), levels = class_list)
 
   # return
   return(predict_class)

@@ -22,6 +22,8 @@ fit_dl_model(model_type, train_input_path, test_input_path, target_size, batch_s
 \item{epochs}{A numeric value indicating the number of iterations to train the model. Use at least 20 for pre-trained models, and at least 200 for a model without pre-trained weights.}
 
 \item{lr_rate}{A numeric value indicating the learning rate. Default: 0.0001.}
+
+\item{model_type}{A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".}
 }
 \value{
 Returns a character string indicating the filename of the best weights trained for the chosen model.
@@ -31,11 +33,10 @@ This function fits deep learning models for post-hurricane individual tree level
 }
 \examples{
 \donttest{
-
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = 'C:\\\\ProgramData\\\\Miniconda3\\\\envs\\\\r-tensorflow'
+tensorflow_dir = '/apps/tensorflow/2.6.0'
 
 # define model type
 model_type = "simple"
@@ -45,16 +46,17 @@ model_type = "simple"
 #model_type = "densenet"
 #model_type = "efficientnet"
 
+train_image_files_path <- getwd() # update the path for training datasets
+test_image_files_path <- getwd() # update the path for testing datasets
 img_width <- 256
 img_height <- 256
-class_list = as.character(1:6)
+class_list_train = unique(list.files(train_image_files_path))
+class_list_test = unique(list.files(test_image_files_path))
 lr_rate = 0.0001
 target_size <- c(img_width, img_height)
 channels <- 4
 batch_size = 8L
 epochs = 20L
-train_image_files_path <- getwd() # update the path for training datasets
-valid_image_files_path <- getwd() # update the path for testing datasets
 
 # get model
 model = get_dl_model(model_type=model_type,
@@ -62,16 +64,16 @@ model = get_dl_model(model_type=model_type,
                     img_height=img_height,
                     lr_rate = lr_rate,
                     tensorflow_dir = tensorflow_dir,
-                    class_list = class_list)
+                    class_list = class_list_train)
 
 
 # train model and return best weights
-weights_fname = fit_dl_model(model = model,
+weights = fit_dl_model(model = model,
                                 train_input_path = train_image_files_path,
-                                test_input_path = valid_image_files_path,
+                                test_input_path = test_image_files_path,
                                 target_size = target_size,
                                 batch_size = batch_size,
-                                class_list = as.character(1:6),
+                                class_list = lass_list_train,
                                 epochs = epochs,
                                 lr_rate = lr_rate)
 

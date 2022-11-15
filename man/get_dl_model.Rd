@@ -20,7 +20,7 @@ get_dl_model(model_type, img_width, img_height, channels, lr_rate, tensorflow_di
 \item{class_list}{A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").}
 }
 \value{
-Returns the model object with the required parameters.
+Returns a list containing the model object with the required parameters and model_type used.
 }
 \description{
 This function selects and returns the deep learning approach to be used with the fit_dl_model function for
@@ -28,11 +28,10 @@ post-hurricane individual tree-level damage classification.
 }
 \examples{
 \donttest{
-
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = "C:\\\\ProgramData\\\\Miniconda3\\\\envs\\\\r-tensorflow"
+tensorflow_dir = '/apps/tensorflow/2.6.0'
 
 # define model type
 model_type = "simple"
@@ -42,10 +41,17 @@ model_type = "simple"
 #model_type = "densenet"
 #model_type = "efficientnet"
 
+train_image_files_path <- getwd() # update the path for training datasets
+test_image_files_path <- getwd() # update the path for testing datasets
 img_width <- 256
 img_height <- 256
+class_list_train = unique(list.files(train_image_files_path))
+class_list_test = unique(list.files(test_image_files_path))
 lr_rate = 0.0001
-class_list = as.character(1:6) # Damage classes
+target_size <- c(img_width, img_height)
+channels <- 4
+batch_size = 8L
+epochs = 20L
 
 # get model
 model = get_dl_model(model_type=model_type,
@@ -53,10 +59,8 @@ model = get_dl_model(model_type=model_type,
                     img_height=img_height,
                     lr_rate = lr_rate,
                     tensorflow_dir = tensorflow_dir,
-                    class_list = class_list)
+                    class_list = class_list_train)
+
 
 }
-}
-\seealso{
-\url{XXXX}
 }

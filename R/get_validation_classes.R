@@ -2,7 +2,7 @@
 #'
 #'@description This function return the post-hurricane individual tree-level damage classes based on file names in a given directory.
 #'
-#'@usage get_validation_classes(file_path, class_list)
+#'@usage get_test_classes(file_path)
 #'
 #'@param file_path A character string indicating the path to the validation folders, one for each class.
 #'This folder must have sub folders with samples for each class.
@@ -11,16 +11,18 @@
 #'
 #'@examples
 #'\donttest{
+#'# Image and model properties
+#'test_image_files_path <- getwd() # update the path for testing datasets
+#'
 #'# Get damage classes for validation datasets
-#'validation_classes<-get_validation_classes(file_path=getwd(),
-#'                                           class_list=as.character(1:6))
+#'test_classes<-get_validation_classes(file_path=test_image_files_path)
 #'}
 #'
 #'@export
-get_validation_classes = function(file_path, class_list) {
+get_test_classes = function(file_path) {
 
   # get reference classes based on the paths
-  validation_classes = dirname(list.files(file_path, recursive=T))
+  test_classes = dirname(list.files(file_path, recursive=T))
 
-  return(validation_classes)
+  return(test_classes)
 }

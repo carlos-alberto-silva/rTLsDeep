@@ -12,6 +12,8 @@ Maintainer: Carlos Alberto Silva <c.silva@ufl.edu>
 Description: Set of tools for post-hurricane individual tree-level damage classification from terrestrial laser scanning and deep learning
 License: GPL-3
 Encoding: UTF-8
+Depends:
+    R (>= 3.5.0)
 Imports:
   lidR,
   ggplot2,
