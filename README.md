@@ -5,11 +5,11 @@
 ![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rTLsDeep)
 
 
-**rTLsDeep: An R Package for post-hurricane individual tree-level damage classification from terrestrial laser scanning and deep learning.**
+**rTLsDeep: An R Package for post-hurricane damage severity classification at the individual tree level using terrestrial laser scanning and deep learning.**
 
-Authors: Carine Klauberg, Carlos Alberto Silva, Matheus Ferreira, Ricardo Dalagnol, Eben Broadbent and Jason Vogel.   
+Authors: Carine Klauberg, Carlos Alberto Silva, Ricardo Dalagnol, Matheus Ferreira, Danilo Romeu Farias de Souza, Luiz Guilherme Almeida Nogueira, Eben Broadbent and Jason Vogel.   
 
-The rTLSDeep package provides options for i) rotating and deriving 2D images from TLS 3D point clouds, ii) calibrating and validating deep learning classification models and iii) predicting post-hurricane individual tree-level damages  
+The rTLSDeep package provides options for i) rotating and deriving 2D images from TLS 3D point clouds, ii) calibrating and validating convolutional neural network (CNN) architectures and iii) predicting post-hurricane damage severity at the individual tree level  
 
 # Getting Started
 
@@ -118,6 +118,11 @@ plot(gtree_c3, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,3
 plot(gtree_c4, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C4",cex=2)
 plot(gtree_c5, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C5",cex=2)
 plot(gtree_c6, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C6",cex=2)
+
+#Exporting 2D grid snapshot as tiff file 
+tiff("gtree_c1.tiff", units="in", width=5, height=5, res=300)
+plot(gtree_c1, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C1",cex=2)
+dev.off()
 ```
 ![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig3_trees.png)
 
@@ -165,7 +170,7 @@ model = get_dl_model(model_type=model_type,
 ```
 ### Model calibration
 ```r
-weights_fname = train_treedamage(model = model,
+weights_fname = fit_dl_model(model = model,
                                  train_input_path = train_image_files_path,
                                  test_input_path = test_image_files_path,
                                  target_size = target_size,
@@ -211,9 +216,10 @@ We gratefully acknowledge funding from NIFA Award # 2020-67030-30714.
 Please report any issue regarding the rTLsDeep package to Dr. *Carlos A. Silva* (c.silva@ufl.edu; maintainer)
 
 # Citing treetop application
-Klauberg, C. 2021; Silva, C.A.; Ferreira, M.; Dalagnol, R.; Broadbent,E.N.; Vogel, J. G. rTLsDeep: An R Package for individual tree level post-hurricane damage classification from terrestrial laser scanning and deep learning. *Methods in Ecology and Evolution (In prep).*
+Klauberg, C., Vogel, J., Dalagnol, R., Ferreira, M., Broadbent,E.N.; Hamamura, C., Silva, C.A. Post-hurricane damage severity classification at the individual tree level using terrestrial laser scanning and deep learning. *Remote Sensing. in review*
 
-Klauberg, C. 2021; Silva, C.A.; Ferreira, M.; Dalagnol, R.; Broadbent,E.N.; Vogel, J. G. rTLsDeep: An R Package for individual tree level post-hurricane damage classification from terrestrial laser scanning and deep learning. Version 0.0.1, accessed on March. 13 2021, available at: https://CRAN.R-project.org/package=rTLsDeep
+Klauberg, C., Vogel, J., Dalagnol, R., Ferreira, M., Broadbent,E.N.; Hamamura, C., Souza, D. R. F, Silva, Nogueira, L. G. A., C.A. rTLsDeep: An R Package for post-hurricane damage severity classification at the individual tree level using terrestrial laser scanning and deep learning. Version 0.0.1, accessed on December. 30 2022, available at: https://github.com/carlos-alberto-silva/rTLsDeep
+
 
 # Disclaimer
 **rTLsDeep has been developed using in R (R Core Team 2022), and it comes with no guarantee, expressed or implied, and the authors hold no responsibility for its use or reliability of its outputs.**
