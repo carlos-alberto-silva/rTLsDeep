@@ -7,7 +7,7 @@
 
 **rTLsDeep: An R Package for post-hurricane damage severity classification at the individual tree level using terrestrial laser scanning and deep learning.**
 
-Authors: Carine Klauberg, Carlos Alberto Silva, Ricardo Dalagnol, Matheus Ferreira, Danilo Romeu Farias de Souza, Luiz Guilherme Almeida Nogueira, Eben Broadbent and Jason Vogel.   
+Authors: Carine Klauberg, Carlos Alberto Silva, Ricardo Dalagnol, Matheus Ferreira, Danilo Romeu Farias de Souza, Luiz Guilherme Almeida Nogueira, Eben Broadbent, Caio Hamamura and Jason Vogel.   
 
 The rTLSDeep package provides options for i) rotating and deriving 2D images from TLS 3D point clouds, ii) calibrating and validating convolutional neural network (CNN) architectures and iii) predicting post-hurricane damage severity at the individual tree level  
 
