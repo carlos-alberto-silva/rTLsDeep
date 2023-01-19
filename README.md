@@ -126,7 +126,7 @@ dev.off()
 ```
 ![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig3_trees.png)
 
-## Post-hurricane individual tree-level damanage using deep learning 
+## Post-hurricane individual tree-level damanage classification using deep learning 
 
 ### Selecting deep learning model properties
 ```r
@@ -215,7 +215,7 @@ We gratefully acknowledge funding from NIFA Award # 2020-67030-30714.
 # Reporting Issues 
 Please report any issue regarding the rTLsDeep package to Dr. *Carlos A. Silva* (c.silva@ufl.edu; maintainer)
 
-# Citing treetop application
+# Citing rTLsDeep application
 Klauberg, C., Vogel, J., Dalagnol, R., Ferreira, M., Broadbent,E.N.; Hamamura, C., Silva, C.A. Post-hurricane damage severity classification at the individual tree level using terrestrial laser scanning and deep learning. *Remote Sensing. in review*
 
 Klauberg, C., Vogel, J., Dalagnol, R., Ferreira, M., Broadbent,E.N.; Hamamura, C., Souza, D. R. F, Silva, Nogueira, L. G. A., C.A. rTLsDeep: An R Package for post-hurricane damage severity classification at the individual tree level using terrestrial laser scanning and deep learning. Version 0.0.1, accessed on December. 30 2022, available at: https://github.com/carlos-alberto-silva/rTLsDeep
