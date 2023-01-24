@@ -126,7 +126,7 @@ dev.off()
 ```
 ![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig3_trees.png)
 
-## Post-hurricane individual tree-level damanage classification using deep learning 
+## Post-hurricane individual tree-level damage classification using deep learning 
 
 ### Selecting deep learning model properties
 ```r
@@ -222,5 +222,5 @@ Klauberg, C., Vogel, J., Dalagnol, R., Ferreira, M., Broadbent,E.N.; Hamamura, C
 
 
 # Disclaimer
-**rTLsDeep has been developed using in R (R Core Team 2022), and it comes with no guarantee, expressed or implied, and the authors hold no responsibility for its use or reliability of its outputs.**
+**rTLsDeep has been developed using R (R Core Team 2022), and it comes with no guarantee, expressed or implied, and the authors hold no responsibility for its use or reliability of its outputs.**
 
