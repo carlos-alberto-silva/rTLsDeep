@@ -92,12 +92,12 @@ download.file("https://github.com/carlos-alberto-silva/rTLsDeep/tree/main/readme
 unzip(file.path(outdir,"laz_files.zip"))
 
 # Reading las file for each post-hurricane individual tree-level damage classes
-tree_c1<-readLAS(paste0(outdir,"//Tree_c1.laz"))
-tree_c2<-readLAS(paste0(outdir,"//Tree_c2.laz"))
-tree_c3<-readLAS(paste0(outdir,"//Tree_c3.laz"))
-tree_c4<-readLAS(paste0(outdir,"//Tree_c4.laz"))
-tree_c5<-readLAS(paste0(outdir,"//Tree_c5.laz"))
-tree_c6<-readLAS(paste0(outdir,"//Tree_c6.laz"))
+tree_c1<-readLAS(file.path(outdir,"laz","Tree_c1.laz"))
+tree_c2<-readLAS(file.path(outdir,"laz","Tree_c2.laz"))
+tree_c3<-readLAS(file.path(outdir,"laz","Tree_c3.laz"))
+tree_c4<-readLAS(file.path(outdir,"laz","Tree_c4.laz"))
+tree_c5<-readLAS(file.path(outdir,"laz","Tree_c5.laz"))
+tree_c6<-readLAS(file.path(outdir,"laz","Tree_c6.laz"))
 
 # Defining the func parameter
 func = ~list(Z = max(Z)) # plot by height
