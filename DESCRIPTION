@@ -9,7 +9,7 @@ Authors@R: c(
     person("Jason", "Vogel", email = "steven.hancock@ed.ac.uk", role = c("aut","ctb")),
     person("Carlos Alberto", "Silva", email = "carlos_engflorestal@outlook.com", role = c("aut","cph")))
 Maintainer: Carlos Alberto Silva <c.silva@ufl.edu>
-Description: Set of tools for post-hurricane individual tree-level damage classification from terrestrial laser scanning and deep learning
+Description: Set of tools for post-hurricane individual tree-level damage classification from terrestrial laser scanning and deep learning.
 License: GPL-3
 Encoding: UTF-8
 Depends:
