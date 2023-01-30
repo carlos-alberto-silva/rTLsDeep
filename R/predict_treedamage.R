@@ -59,7 +59,7 @@
 #'                                 test_input_path = test_image_files_path,
 #'                                 target_size = target_size,
 #'                                 batch_size = batch_size,
-#'                                 class_list = lass_list_train,
+#'                                 class_list = class_list_train,
 #'                                 epochs = epochs,
 #'                                 lr_rate = lr_rate)
 #'

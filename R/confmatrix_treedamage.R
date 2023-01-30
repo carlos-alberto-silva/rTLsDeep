@@ -45,6 +45,7 @@
 #'model = get_dl_model(model_type=model_type,
 #'                     img_width=img_width,
 #'                     img_height=img_height,
+#'                     channels=channels,
 #'                     lr_rate = lr_rate,
 #'                     tensorflow_dir = tensorflow_dir,
 #'                     class_list = class_list_train)
@@ -56,7 +57,7 @@
 #'                                 test_input_path = test_image_files_path,
 #'                                 target_size = target_size,
 #'                                 batch_size = batch_size,
-#'                                 class_list = lass_list_train,
+#'                                 class_list = class_list_train,
 #'                                 epochs = epochs,
 #'                                 lr_rate = lr_rate)
 #'
