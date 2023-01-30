@@ -89,7 +89,7 @@ getMinBBox <- function(xy) {
 #' 
 #' get_best_angle(las)
 #'
-#' @importFrom grDevices chull
+#' @import sf
 get_best_angle = function(las) {
     return(getMinBBox(sf::st_coordinates(las[chull(las$X, las$Y)], z=FALSE))$angle[[1]])
 }
