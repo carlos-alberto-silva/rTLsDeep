@@ -142,7 +142,12 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
   ## Train the model
 
   # mixed precision
-  tensorflow::tf$keras$mixed_precision$experimental$set_policy('mixed_float16')
+  best_precision = ifelse(tensorflow::tf$test$is_gpu_available(), 'mixed_float16', 'float32')
+  if ('experimental' %in% reticulate::py_list_attributes(tensorflow::tf$keras$mixed_precision)) {
+    tensorflow::tf$keras$mixed_precision$experimental$set_policy(best_precision)
+  } else {
+    tensorflow::tf$keras$mixed_precision$set_global_policy(best_precision)
+  }
 
   # call backs
   callbacks_list = list(
