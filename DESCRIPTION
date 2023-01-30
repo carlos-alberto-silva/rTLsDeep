@@ -17,8 +17,11 @@ Depends:
 Imports:
   lidR,
   ggplot2,
+  grDevices,
   keras,
   reticulate,
   caret,
-  rgl
-RoxygenNote: 7.2.1
+  rgl,
+  sf,
+  terra
+RoxygenNote: 7.2.3
