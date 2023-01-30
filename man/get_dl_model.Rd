@@ -15,7 +15,7 @@ get_dl_model(model_type, img_width, img_height, channels, lr_rate, tensorflow_di
 
 \item{lr_rate}{A numeric value indicating the learning rate. Default: 0.0001.}
 
-\item{tensorflow_dir}{A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709}
+\item{tensorflow_dir}{A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709. Default = NA.}
 
 \item{class_list}{A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").}
 }
@@ -31,7 +31,7 @@ post-hurricane individual tree-level damage classification.
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = '/apps/tensorflow/2.6.0'
+#'tensorflow_dir = NA
 
 # define model type
 model_type = "simple"
@@ -57,6 +57,7 @@ epochs = 20L
 model = get_dl_model(model_type=model_type,
                     img_width=img_width,
                     img_height=img_height,
+                    channels=channels
                     lr_rate = lr_rate,
                     tensorflow_dir = tensorflow_dir,
                     class_list = class_list_train)

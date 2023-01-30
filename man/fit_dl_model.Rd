@@ -36,7 +36,7 @@ This function fits deep learning models for post-hurricane individual tree level
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = '/apps/tensorflow/2.6.0'
+tensorflow_dir = NA
 
 # define model type
 model_type = "simple"
@@ -62,6 +62,7 @@ epochs = 20L
 model = get_dl_model(model_type=model_type,
                     img_width=img_width,
                     img_height=img_height,
+                    channels=channels
                     lr_rate = lr_rate,
                     tensorflow_dir = tensorflow_dir,
                     class_list = class_list_train)
@@ -73,7 +74,7 @@ weights = fit_dl_model(model = model,
                                 test_input_path = test_image_files_path,
                                 target_size = target_size,
                                 batch_size = batch_size,
-                                class_list = lass_list_train,
+                                class_list = class_list_train,
                                 epochs = epochs,
                                 lr_rate = lr_rate)
 

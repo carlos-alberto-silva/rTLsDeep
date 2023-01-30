@@ -32,7 +32,7 @@ This function predicts post-hurricane individual tree-level damage from TLS deri
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = '/apps/tensorflow/2.6.0'
+tensorflow_dir = NA
 
 # define model type
 model_type = "simple"
@@ -69,7 +69,7 @@ weights = fit_dl_model(model = model,
                                 test_input_path = test_image_files_path,
                                 target_size = target_size,
                                 batch_size = batch_size,
-                                class_list = lass_list_train,
+                                class_list = class_list_train,
                                 epochs = epochs,
                                 lr_rate = lr_rate)
 

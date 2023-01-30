@@ -50,5 +50,12 @@ g<-getTLS2D(las, res=res, by=by, func = func, scale=scale)
 
 # Visualizing 2D grid snapshot
 plot(g, asp=TRUE, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="")
+
+#Exporting 2D grid snapshot as tiff file
+tiff("gtree_c1.tiff", units="in", width=5, height=5, res=300)
+plot(g, asp=TRUE, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="")
+dev.off()
+
+
 }
 }
