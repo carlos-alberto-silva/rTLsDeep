@@ -17,7 +17,7 @@
 #'# Set directory to tensorflow (python environment)
 #'# This is required if running deep learning local computer with GPU
 #'# Guide to install here: https://doi.org/10.5281/zenodo.3929709
-#'tensorflow_dir = '/apps/tensorflow/2.6.0'
+#'tensorflow_dir = NA
 #'
 #'# define model type
 #'model_type = "simple"

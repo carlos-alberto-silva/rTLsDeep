@@ -10,7 +10,7 @@
 #'@param img_height A numeric value describing the height of the image used for training. Default: 256.
 #'@param class_list A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").
 #'@param lr_rate A numeric value indicating the learning rate. Default: 0.0001.
-#'@param tensorflow_dir A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709
+#'@param tensorflow_dir A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709. Default = NA.
 #'
 #'@return Returns a list containing the model object with the required parameters and model_type used.
 #'
@@ -19,7 +19,7 @@
 #'# Set directory to tensorflow (python environment)
 #'# This is required if running deep learning local computer with GPU
 #'# Guide to install here: https://doi.org/10.5281/zenodo.3929709
-#'tensorflow_dir = '/apps/tensorflow/2.6.0'
+#'#'tensorflow_dir = NA
 #'
 #'# define model type
 #'model_type = "simple"
@@ -57,10 +57,13 @@
 #'@importFrom keras layer_input layer_conv_2d layer_activation layer_activation_leaky_relu layer_batch_normalization layer_max_pooling_2d layer_dropout layer_flatten layer_dense keras_model application_vgg16 application_resnet152_v2 application_inception_v3 application_densenet201 application_efficientnet_b7 optimizer_adam compile %>%
 #'@importFrom reticulate use_python
 #'@export
-get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, lr_rate = 0.0001, tensorflow_dir, class_list) {
+get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, lr_rate = 0.0001, tensorflow_dir = NA, channels, class_list) {
 
   # define tensorflow python environment
-  reticulate::use_python(file.path(tensorflow_dir,"bin/python"), required = T)
+  if (is.na(tensorflow_dir) == FALSE)
+  {
+    reticulate::use_python(file.path(tensorflow_dir,"bin/python"), required = T)
+  }
 
   # number of classes
   output_n = length(class_list)
