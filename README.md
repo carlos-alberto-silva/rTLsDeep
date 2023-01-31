@@ -44,7 +44,7 @@ install.packages("pacman")
 
 #load pcaman and all packages
 library(pacman)
-p_load(rTLsDeep,lidR,rgl,ggplot2,rgl,keras,reticulate,compiler)
+p_load(rTLsDeep,lidR,rgl,ggplot2,rgl,keras,reticulate,compiler,terra)
 ```
 
 ## TLS data processing
@@ -132,6 +132,54 @@ dev.off()
 
 ### Selecting deep learning model properties
 ```r
+# Exporting 2D grids
+## Creating train/test datasets for C1 and C2 only
+classes = c('C1', 'C2')
+targets = c('train', 'validation')
+
+### Create folders
+folders_to_create = file.path(targets, rep(classes, each=length(targets)))
+sapply(folders_to_create, dir.create, recursive=T, showWarnings=FALSE)
+
+### Calculate rotations by 15 degrees
+rotations = c(seq(0, 89, 15), seq(180, 269, 15))
+n_images = length(rotations) * 2 # We will use xz and yz from TLS
+
+### Get random training samples
+indices = seq_len(n_images)
+val_samples = sample(indices, size=n_images * 0.25)
+
+### Image parameters
+img_width <- 256
+img_height <- 256
+
+createImage = function(raster, file_path, width, height) {
+    png(paste0(file_path, '.png'), units="px", width=width, height=height)
+    par(mar=c(0,0,0,0))
+    terra::image(raster, col=viridis::viridis(100), axes=FALSE, ylim=c(-0.05,max_height-0.05))
+    dev.off()
+}
+
+ii = 1
+func = ~list(Z = max(Z)) # plot by height
+
+## Create images rotating images
+for (rotation in rotations) {
+    train_or_vals = targets[(c(ii, ii+1) %in% val_samples) + 1]
+
+    for (current_class in classes) {
+        tree = tlsrotate3d(get(paste0('tree_', tolower(current_class))), theta=rotation, by="z", scale=TRUE)
+
+        raster = getTLS2D(tree, res=resolution, by="xz", func = func, scale=TRUE)
+        createImage(raster, file.path(train_or_vals[1], current_class, ii), width, height)
+
+        raster = getTLS2D(tree, res=resolution, by="yz", func = func, scale=TRUE)
+        createImage(raster, file.path(train_or_vals[2], current_class, ii + 1), width, height)
+    }
+    ii = ii + 2
+}
+
+
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
