@@ -16,9 +16,10 @@ The rTLSDeep package provides options for i) rotating and deriving 2D images fro
 
 ## Install R, Git and Rtools40
 
-1. *R (>= 4.0.0)*: https://www.r-project.org/
+1. *R >= 4.0.0*: https://www.r-project.org/
+1. *Rtools >= 4 (windows)*: https://cran.r-project.org/bin/windows/Rtools/
 1. *Git*: https://git-scm.com/
-1. *tensorflow==2.6.0 (python)*: https://doi.org/10.5281/zenodo.3929709
+1. *tensorflow (python)*: https://doi.org/10.5281/zenodo.3929709
 1. *numpy (python)*
 1. *scipy (python)*
 1. *pillow (python - recommended)*
