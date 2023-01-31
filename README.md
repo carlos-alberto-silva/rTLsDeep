@@ -88,7 +88,7 @@ las<-tlsrotate3d(las,theta=120, by="z", scale=TRUE)
 outdir=getwd()
 
 # downloading zip file
-download.file("https://github.com/carlos-alberto-silva/rTLsDeep/tree/main/readme/laz_files.zip",destfile=file.path(outdir, "laz_files.zip"))
+download.file("https://github.com/carlos-alberto-silva/rTLsDeep/raw/main/readme/laz_files.zip",destfile=file.path(outdir, "laz_files.zip"))
 
 # unzip file 
 unzip(file.path(outdir,"laz_files.zip"))
@@ -120,11 +120,6 @@ plot(gtree_c3, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,3
 plot(gtree_c4, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C4",cex=2)
 plot(gtree_c5, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C5",cex=2)
 plot(gtree_c6, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C6",cex=2)
-
-#Exporting 2D grid snapshot as tiff file 
-tiff("gtree_c1.tiff", units="in", width=5, height=5, res=300)
-plot(gtree_c1, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="", ylim=c(0,30), main="C1",cex=2)
-dev.off()
 ```
 ![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/fig3_trees.png)
 
@@ -183,7 +178,7 @@ for (rotation in rotations) {
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = '/apps/tensorflow/2.6.0'
+tensorflow_dir = NA
 
 # define model type
 #model_type = "simple"
@@ -193,9 +188,8 @@ model_type = "vgg"
 #model_type = "densenet"
 #model_type = "efficientnet"
 
-# path to image folders - black
-train_image_files_path <- getwd() # update the path for training datasets
-test_image_files_path <- getwd() # update the path for testing datasets
+train_image_files_path = 'train'
+test_image_files_path = 'validation'
 
 # Image and model properties
 img_width <- 256
@@ -208,11 +202,11 @@ channels <- 4
 batch_size = 8L
 epochs = 20L
 
-
 # get model
 model = get_dl_model(model_type=model_type,
                      img_width=img_width,
                      img_height=img_height,
+                     channels=channels,
                      lr_rate = lr_rate,
                      tensorflow_dir = tensorflow_dir,
                      class_list = class_list_train)
@@ -235,7 +229,7 @@ weights_fname = fit_dl_model(model = model,
 ```r
 tree_damage<-predict_treedamage(model = model,
                             input_file_path = test_image_files_path,
-                            weights = weights,
+                            weights = weights_fname,
                             target_size = c(256,256),
                             class_list=class_list_test,
                             batch_size = batch_size)
@@ -255,6 +249,11 @@ gcmplot_vgg<-gcmplot(cm,
                      title="densenet")
 ```
 ![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/cm.png)
+
+
+# Working example using Google Colab:
+
+<https://colab.research.google.com/drive/1YnvIca1FtHqIYwWKmp5zoPOz1Zonm7NR?usp=sharing>
 
 # References
 R Core Team. (2021). R: A Language and Environment for Statistical Computing; R Core Team: Vienna, Austria. https://www.r-project.org/
