@@ -14,14 +14,15 @@ Encoding: UTF-8
 Depends:
     R (>= 3.5.0)
 Imports:
-  lidR,
+  caret,
   ggplot2,
   grDevices,
+  lidR,
   keras,
   reticulate,
-  caret,
   rgl,
-  sf
+  sf,
+  tensorflow
 Suggests:
   terra
 RoxygenNote: 7.2.3

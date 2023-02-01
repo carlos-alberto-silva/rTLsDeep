@@ -4,7 +4,16 @@
 \alias{fit_dl_model}
 \title{Fitting deep learning models for post-hurricane individual tree level damage classification}
 \usage{
-fit_dl_model(model_type, train_input_path, test_input_path, target_size, batch_size, class_list, epochs, lr_rate)
+fit_dl_model(
+  model,
+  train_input_path,
+  test_input_path,
+  target_size = c(256, 256),
+  batch_size = 8,
+  class_list,
+  epochs = 20L,
+  lr_rate = 1e-04
+)
 }
 \arguments{
 \item{model}{A model object output of the get_dl_model function. See [rTLsDeep::get_dl_model()].}
@@ -22,8 +31,6 @@ fit_dl_model(model_type, train_input_path, test_input_path, target_size, batch_s
 \item{epochs}{A numeric value indicating the number of iterations to train the model. Use at least 20 for pre-trained models, and at least 200 for a model without pre-trained weights.}
 
 \item{lr_rate}{A numeric value indicating the learning rate. Default: 0.0001.}
-
-\item{model_type}{A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".}
 }
 \value{
 Returns a character string indicating the filename of the best weights trained for the chosen model.

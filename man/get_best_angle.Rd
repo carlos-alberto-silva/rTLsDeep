@@ -18,8 +18,8 @@ rotating calipers algorithm and extracts the angle
 Credits go to Daniel Wollschlaeger <https://github.com/ramnathv>
 }
 \examples{
-lasfile <- system.file("extdata", "tree_c1.laz", package="rTLsDeep")
-las<-lidR::readLAS(lasfile)
+lasfile <- system.file("extdata", "tree_c1.laz", package = "rTLsDeep")
+las <- lidR::readLAS(lasfile)
 
 get_best_angle(las)
 

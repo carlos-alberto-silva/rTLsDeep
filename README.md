@@ -149,7 +149,7 @@ img_width <- 256
 img_height <- 256
 
 createImage = function(raster, file_path, width, height) {
-    png(paste0(file_path, '.png'), units="px", width=width, height=height)
+    png(paste0(file_path, '.png'), units="px", width=img_width, height=img_height)
     par(mar=c(0,0,0,0))
     terra::image(raster, col=viridis::viridis(100), axes=FALSE, ylim=c(-0.05,max_height-0.05))
     dev.off()

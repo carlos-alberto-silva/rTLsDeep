@@ -2,10 +2,7 @@
 #'
 #'@description This function fits deep learning models for post-hurricane individual tree level damage classification using TLS-derived 2D images
 #'
-#'@usage fit_dl_model(model_type, train_input_path, test_input_path, target_size, batch_size, class_list, epochs, lr_rate)
-#'
 #'@param model A model object output of the get_dl_model function. See [rTLsDeep::get_dl_model()].
-#'@param model_type A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".
 #'@param train_input_path A character string describing the path to the training dataset, e.g.: "C:/train_data/".
 #'@param test_input_path A character string describing the path to the testing dataset, e.g.: "C:/test_data/".
 #'@param target_size A vector of two values describing the image dimensions (Width and height) to be used in the model. Default: c(256,256)
@@ -67,7 +64,7 @@
 #'                                 lr_rate = lr_rate)
 #'
 #'}
-#'@importFrom keras image_data_generator flow_images_from_directory fit_generator callback_csv_logger callback_model_checkpoint
+#'@import keras tensorflow
 #'@export
 fit_dl_model = function(model, train_input_path, test_input_path, target_size = c(256,256), batch_size = 8, class_list, epochs = 20L, lr_rate = 0.0001) {
 

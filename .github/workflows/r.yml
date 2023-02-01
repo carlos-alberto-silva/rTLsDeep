@@ -40,6 +40,9 @@ jobs:
           sudo apt install r-cran-rgl r-cran-reticulate r-cran-keras r-cran-ggplot2 r-cran-viridis r-cran-lidr r-cran-caret r-cran-rcmdcheck r-cran-remotes
         shell: bash
 
+      - name: List installed packages
+        run: basename(list.dirs(.libPaths(), recursive = F))
+        shell: Rscript {0}
 
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
