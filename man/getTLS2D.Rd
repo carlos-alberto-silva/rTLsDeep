@@ -25,8 +25,6 @@ Returns an object of class SpatRaste containing the 2D grid snapshot of the TLS 
 This function captures a 2D grid snapshot of the TLS-derived 3D Point Cloud
 }
 \examples{
-\donttest{
-
 #Loading lidR and viridis libraries
 library(lidR)
 library(viridis)
@@ -51,11 +49,10 @@ g<-getTLS2D(las, res=res, by=by, func = func, scale=scale)
 # Visualizing 2D grid snapshot
 plot(g, asp=TRUE, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="")
 
-#Exporting 2D grid snapshot as tiff file
-tiff("gtree_c1.tiff", units="in", width=5, height=5, res=300)
-plot(g, asp=TRUE, col=viridis::viridis(100),axes=FALSE, xlab="",ylab="")
+# Exporting 2D grid snapshot as png file
+output_png = paste0(tempfile(), '.png')
+png(output_png, units="px", width=1500, height=1500)
+terra::image(g, col=viridis::viridis(100))
+
 dev.off()
-
-
-}
 }

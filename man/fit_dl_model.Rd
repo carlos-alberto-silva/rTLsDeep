@@ -53,8 +53,8 @@ model_type = "simple"
 #model_type = "densenet"
 #model_type = "efficientnet"
 
-train_image_files_path <- getwd() # update the path for training datasets
-test_image_files_path <- getwd() # update the path for testing datasets
+train_image_files_path = system.file('extdata', 'train', package='rTLsDeep')
+test_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
 img_width <- 256
 img_height <- 256
 class_list_train = unique(list.files(train_image_files_path))
@@ -63,7 +63,7 @@ lr_rate = 0.0001
 target_size <- c(img_width, img_height)
 channels <- 4
 batch_size = 8L
-epochs = 20L
+epochs = 2L
 
 # get model
 model = get_dl_model(model_type=model_type,
@@ -84,6 +84,10 @@ weights = fit_dl_model(model = model,
                                 class_list = class_list_train,
                                 epochs = epochs,
                                 lr_rate = lr_rate)
+
+unlink('epoch_history', recursive = TRUE)
+unlink('weights', recursive = TRUE)
+unlink('weights_r_save', recursive = TRUE)
 
 }
 }

@@ -20,16 +20,16 @@
 #'las<-lidR::readLAS(lasfile)
 #'
 #'# Visualizing las file
-#'plot(las)
+#'lidR::plot(las)
 #'
 #'# Rotating 3d point cloud around Z-axis
 #'lasr<-tlsrotate3d(las,theta=180, by="x", scale=TRUE)
 #'
 #'# Visualizing rotated las file
-#'plot(lasr)
+#'lidR::plot(lasr)
 #'
-#'if (!rgl.useNULL())
-#'  rgl::play3d(spin3d(axis = c(0, 0, 1), rpm = 5), duration = 10)
+#'if (!rgl::rgl.useNULL())
+#'  rgl::play3d(rgl::spin3d(axis = c(0, 0, 1), rpm = 5), duration = 10)
 #'
 #'}
 #'@importFrom rgl rotate3d

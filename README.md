@@ -145,13 +145,15 @@ indices = seq_len(n_images)
 val_samples = sample(indices, size=n_images * 0.25)
 
 ### Image parameters
-img_width <- 256
-img_height <- 256
+img_width = 256
+img_height = 256
+resolution = 0.05
+max_height = 30
 
 createImage = function(raster, file_path, width, height) {
     png(paste0(file_path, '.png'), units="px", width=img_width, height=img_height)
     par(mar=c(0,0,0,0))
-    terra::image(raster, col=viridis::viridis(100), axes=FALSE, ylim=c(-0.05,max_height-0.05))
+    terra::image(raster, col=viridis::viridis(100), axes=FALSE, ylim=c(-resolution,max_height-resolution))
     dev.off()
 }
 
@@ -237,7 +239,7 @@ tree_damage<-predict_treedamage(model = model,
 ### Confusion matrix
 ```r
 # Get damage classes for validation datasets
-test_classes<-get_test_classes(file_path=test_image_files_path)
+test_classes<-get_validation_classes(file_path=test_image_files_path)
 
 # Calculate confusion matrix
 cm = confmatrix_treedamage(predict_class = tree_damage,

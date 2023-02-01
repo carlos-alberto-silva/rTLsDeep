@@ -24,5 +24,6 @@ Imports:
   sf,
   tensorflow
 Suggests:
-  terra
+  terra,
+  viridis
 RoxygenNote: 7.2.3

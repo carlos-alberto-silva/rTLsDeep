@@ -21,6 +21,6 @@ Credits go to Daniel Wollschlaeger <https://github.com/ramnathv>
 lasfile <- system.file("extdata", "tree_c1.laz", package = "rTLsDeep")
 las <- lidR::readLAS(lasfile)
 
-get_best_angle(las)
+(get_best_angle(las))
 
 }

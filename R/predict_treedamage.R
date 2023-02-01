@@ -29,15 +29,15 @@
 #'
 # # Image and model properties
 # path to image folders - black
-#'train_image_files_path <- getwd() # update the path for training datasets
-#'test_image_files_path <- getwd() # update the path for testing datasets
+#'train_image_files_path = system.file('extdata', 'train', package='rTLsDeep')
+#'test_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
 #'img_width <- 256
 #'img_height <- 256
 #'class_list_train = unique(list.files(train_image_files_path))
 #'class_list_test = unique(list.files(test_image_files_path))
 #'lr_rate = 0.0001
 #'target_size <- c(img_width, img_height)
-#'channels <- 4
+#'channels = 4
 #'batch_size = 8L
 #'epochs = 20L
 #'
@@ -47,6 +47,7 @@
 #'                     img_height=img_height,
 #'                     lr_rate = lr_rate,
 #'                     tensorflow_dir = tensorflow_dir,
+#'                     channels = channels,
 #'                     class_list = class_list_train)
 #'
 #'
@@ -69,6 +70,9 @@
 #'                            class_list=class_list_test,
 #'                            batch_size = batch_size)
 #'
+#'unlink('epoch_history', recursive = TRUE)
+#'unlink('weights', recursive = TRUE)
+#'unlink('weights_r_save', recursive = TRUE)
 #'}
 #'@importFrom keras load_model_weights_hdf5 flow_images_from_directory
 #'@export

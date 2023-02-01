@@ -32,16 +32,11 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
 
-      - name: Install system dependencies
+      - name: Install
         run: |
-          sudo add-apt-repository ppa:ubuntugis/ppa
-          sudo add-apt-repository ppa:c2d4u.team/c2d4u4.0+
-          sudo apt update
-          sudo apt install r-cran-rgl r-cran-reticulate r-cran-keras r-cran-ggplot2 r-cran-viridis r-cran-lidr r-cran-caret r-cran-rcmdcheck r-cran-remotes
-        shell: bash
-
-      - name: List installed packages
-        run: basename(list.dirs(.libPaths(), recursive = F))
+          install.packages('remotes')
+          install.packages('rcmdcheck')
+          remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Check

@@ -37,11 +37,10 @@ This function selects and returns the deep learning approach to be used with the
 post-hurricane individual tree-level damage classification.
 }
 \examples{
-\donttest{
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
-#'tensorflow_dir = NA
+tensorflow_dir = NA
 
 # define model type
 model_type = "simple"
@@ -51,17 +50,15 @@ model_type = "simple"
 #model_type = "densenet"
 #model_type = "efficientnet"
 
-train_image_files_path <- getwd() # update the path for training datasets
-test_image_files_path <- getwd() # update the path for testing datasets
+train_image_files_path = system.file('extdata', 'train', package='rTLsDeep')
+test_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
 img_width <- 256
 img_height <- 256
 class_list_train = unique(list.files(train_image_files_path))
 class_list_test = unique(list.files(test_image_files_path))
 lr_rate = 0.0001
 target_size <- c(img_width, img_height)
-channels <- 4
-batch_size = 8L
-epochs = 20L
+channels = 4
 
 # get model
 model = get_dl_model(model_type=model_type,
@@ -73,5 +70,4 @@ model = get_dl_model(model_type=model_type,
                     class_list = class_list_train)
 
 
-}
 }

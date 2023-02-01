@@ -8,19 +8,17 @@
 #'@return Returns the classes based on file names in a given folder.
 #'
 #'@examples
-#'\donttest{
 #'# Image and model properties
-#'test_image_files_path <- getwd() # update the path for testing datasets
+#'val_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
 #'
 #'# Get damage classes for validation datasets
-#'test_classes<-get_validation_classes(file_path=test_image_files_path)
-#'}
+#'classes = get_validation_classes(file_path=val_image_files_path)
 #'
 #'@export
-get_test_classes = function(file_path) {
+get_validation_classes = function(file_path) {
 
   # get reference classes based on the paths
-  test_classes = dirname(list.files(file_path, recursive=T))
+  validation_classes = dirname(list.files(file_path, recursive=T))
 
-  return(test_classes)
+  return(validation_classes)
 }

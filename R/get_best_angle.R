@@ -87,10 +87,14 @@ getMinBBox <- function(xy) {
 #' lasfile <- system.file("extdata", "tree_c1.laz", package = "rTLsDeep")
 #' las <- lidR::readLAS(lasfile)
 #'
-#' get_best_angle(las)
+#' (get_best_angle(las))
 #'
 #' @import sf
 #' @export
 get_best_angle <- function(las) {
-  return(getMinBBox(sf::st_coordinates(las[chull(las$X, las$Y)], z = FALSE))$angle[[1]])
+  return(
+    getMinBBox(
+      sf::st_coordinates(las[chull(las$X, las$Y)], z = FALSE)
+    )$angle[[1]]
+  )
 }

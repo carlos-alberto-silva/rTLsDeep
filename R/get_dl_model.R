@@ -14,11 +14,10 @@
 #'@return Returns a list containing the model object with the required parameters and model_type used.
 #'
 #'@examples
-#'\donttest{
 #'# Set directory to tensorflow (python environment)
 #'# This is required if running deep learning local computer with GPU
 #'# Guide to install here: https://doi.org/10.5281/zenodo.3929709
-#'#'tensorflow_dir = NA
+#'tensorflow_dir = NA
 #'
 #'# define model type
 #'model_type = "simple"
@@ -30,17 +29,15 @@
 #'
 # # Image and model properties
 # path to image folders - black
-#'train_image_files_path <- getwd() # update the path for training datasets
-#'test_image_files_path <- getwd() # update the path for testing datasets
+#'train_image_files_path = system.file('extdata', 'train', package='rTLsDeep')
+#'test_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
 #'img_width <- 256
 #'img_height <- 256
 #'class_list_train = unique(list.files(train_image_files_path))
 #'class_list_test = unique(list.files(test_image_files_path))
 #'lr_rate = 0.0001
 #'target_size <- c(img_width, img_height)
-#'channels <- 4
-#'batch_size = 8L
-#'epochs = 20L
+#'channels = 4
 #'
 #'# get model
 #'model = get_dl_model(model_type=model_type,
@@ -52,7 +49,6 @@
 #'                     class_list = class_list_train)
 #'
 #'
-#'}
 #'@importFrom keras layer_input layer_conv_2d layer_activation layer_activation_leaky_relu layer_batch_normalization layer_max_pooling_2d layer_dropout layer_flatten layer_dense keras_model application_vgg16 application_resnet152_v2 application_inception_v3 application_densenet201 application_efficientnet_b7 optimizer_adam compile %>%
 #'@importFrom reticulate use_python
 #'@export
