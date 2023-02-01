@@ -47,7 +47,7 @@
 #'model = get_dl_model(model_type=model_type,
 #'                     img_width=img_width,
 #'                     img_height=img_height,
-#'                     channels=channels
+#'                     channels=channels,
 #'                     lr_rate = lr_rate,
 #'                     tensorflow_dir = tensorflow_dir,
 #'                     class_list = class_list_train)

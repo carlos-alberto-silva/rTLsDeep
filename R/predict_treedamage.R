@@ -2,13 +2,12 @@
 #'
 #'@description This function predicts post-hurricane individual tree-level damage from TLS derived 2D images
 #'
+#'@param model A model object output of the get_dl_model function. See [rTLsDeep::get_dl_model()].
 #'@param input_file_path A character string describing the path to the images to predict, e.g.: "C:/test_data/".
-#'@param model_type A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".
 #'@param weights A character string indicating the filename of the weights to use for prediction.
 #'@param target_size A vector of two values describing the image dimensions (Width and height) to be used in the model. Default: c(256,256)
 #'@param batch_size A numerical value indicating the number of images to be processed at the same time. Reduce the batch_size if the GPU is giving memory errors.
 #'@param class_list A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").
-#'@param tensorflow_dir A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709
 #'
 #'@return Returns a character string with the prediction classes.
 #'
@@ -73,7 +72,7 @@
 #'}
 #'@importFrom keras load_model_weights_hdf5 flow_images_from_directory
 #'@export
-predict_treedamage = function(model , input_file_path, weights, target_size = c(256,256), class_list, batch_size = 8) {
+predict_treedamage = function(model, input_file_path, weights, target_size = c(256,256), class_list, batch_size = 8) {
 
 
   # load weights

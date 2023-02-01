@@ -6,9 +6,10 @@
 #'@param model_type A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".
 #'@param img_width A numeric value describing the width of the image used for training. Default: 256.
 #'@param img_height A numeric value describing the height of the image used for training. Default: 256.
-#'@param class_list A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").
 #'@param lr_rate A numeric value indicating the learning rate. Default: 0.0001.
 #'@param tensorflow_dir A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709. Default = NA.
+#'@param channels A numeric value for the number of channels/bands of the input images.
+#'@param class_list A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").
 #'
 #'@return Returns a list containing the model object with the required parameters and model_type used.
 #'
@@ -45,7 +46,7 @@
 #'model = get_dl_model(model_type=model_type,
 #'                     img_width=img_width,
 #'                     img_height=img_height,
-#'                     channels=channels
+#'                     channels=channels,
 #'                     lr_rate = lr_rate,
 #'                     tensorflow_dir = tensorflow_dir,
 #'                     class_list = class_list_train)

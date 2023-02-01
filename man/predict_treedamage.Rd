@@ -14,6 +14,8 @@ predict_treedamage(
 )
 }
 \arguments{
+\item{model}{A model object output of the get_dl_model function. See [rTLsDeep::get_dl_model()].}
+
 \item{input_file_path}{A character string describing the path to the images to predict, e.g.: "C:/test_data/".}
 
 \item{weights}{A character string indicating the filename of the weights to use for prediction.}
@@ -23,10 +25,6 @@ predict_treedamage(
 \item{class_list}{A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").}
 
 \item{batch_size}{A numerical value indicating the number of images to be processed at the same time. Reduce the batch_size if the GPU is giving memory errors.}
-
-\item{model_type}{A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".}
-
-\item{tensorflow_dir}{A character string indicating the directory for the tensorflow python environment. Guide to install the environment here: https://doi.org/10.5281/zenodo.3929709}
 }
 \value{
 Returns a character string with the prediction classes.

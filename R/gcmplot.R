@@ -28,6 +28,9 @@
 #'
 #'
 gcmplot<-function(cm,colors=c(low="white", high="#009194"), title="cm", prop=TRUE){
+  Reference = NA
+  Prediction = NA
+  Freq = NA
 
   if ( prop==TRUE){
     rowsums = apply(cm$table, 1, sum)
@@ -37,7 +40,7 @@ gcmplot<-function(cm,colors=c(low="white", high="#009194"), title="cm", prop=TRU
   plt$Prediction <- factor(plt$Prediction, levels=levels(plt$Prediction))
   plt$Reference <- factor(plt$Reference, levels=rev(levels(plt$Reference)))
 
-  g<-ggplot2::ggplot(plt, ggplot2::aes(Prediction,Reference, fill= Freq)) +
+  g <- ggplot2::ggplot(plt, ggplot2::aes(Prediction, Reference, fill= Freq)) +
     ggplot2::geom_tile() + ggplot2::geom_text(ggplot2::aes(label=Freq)) +
     #scale_fill_distiller(palette=pal, direction=1) +
     ggplot2::scale_fill_gradient(low=colors[1], high=colors[2])+
