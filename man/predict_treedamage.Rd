@@ -4,7 +4,14 @@
 \alias{predict_treedamage}
 \title{Predict post-hurricane individual tree level damage}
 \usage{
-predict_treedamage(input_file_path, model, weights, target_size, class_list, batch_size)
+predict_treedamage(
+  model,
+  input_file_path,
+  weights,
+  target_size = c(256, 256),
+  class_list,
+  batch_size = 8
+)
 }
 \arguments{
 \item{input_file_path}{A character string describing the path to the images to predict, e.g.: "C:/test_data/".}

@@ -4,7 +4,7 @@
 \alias{getTLS2D}
 \title{Grid snapshot}
 \usage{
-getTLS2D(as, res, by, func, scale)
+getTLS2D(las, res = 0.05, by = "xz", func = ~list(Z = max(Z)), scale = TRUE)
 }
 \arguments{
 \item{las}{An object of class LAS [lidR::readLAS()].}

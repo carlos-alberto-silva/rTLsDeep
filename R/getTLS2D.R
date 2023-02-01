@@ -2,8 +2,6 @@
 #'
 #'@description This function captures a 2D grid snapshot of the TLS-derived 3D Point Cloud
 #'
-#'@usage getTLS2D(as, res, by, func, scale)
-#'
 #'@param las An object of class LAS [lidR::readLAS()].
 #'@param res Numeric defining the resolution or grid cell size of the 2D image.
 #'@param by Character defining the grid snapshot view: 'xz', 'yx' or 'xy'. Default: 'xz'.

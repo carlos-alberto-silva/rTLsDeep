@@ -3,8 +3,6 @@
 #'@description This function selects and returns the deep learning approach to be used with the fit_dl_model function for
 #'post-hurricane individual tree-level damage classification.
 #'
-#'@usage get_dl_model(model_type, img_width, img_height, channels, lr_rate, tensorflow_dir, class_list)
-#'
 #'@param model_type A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".
 #'@param img_width A numeric value describing the width of the image used for training. Default: 256.
 #'@param img_height A numeric value describing the height of the image used for training. Default: 256.

@@ -4,7 +4,12 @@
 \alias{gcmplot}
 \title{Plot confusion matrix}
 \usage{
-gcmplot(cm,colors, title, prop)
+gcmplot(
+  cm,
+  colors = c(low = "white", high = "#009194"),
+  title = "cm",
+  prop = TRUE
+)
 }
 \arguments{
 \item{cm}{An confusion matrix object of class "confusionMatrix". Output of the [rTLsDeep::confmatrix_damage()] function.}

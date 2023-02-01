@@ -2,8 +2,6 @@
 #'
 #'@description This function return the post-hurricane individual tree-level damage classes based on file names in a given directory.
 #'
-#'@usage get_test_classes(file_path)
-#'
 #'@param file_path A character string indicating the path to the validation folders, one for each class.
 #'This folder must have sub folders with samples for each class.
 #'

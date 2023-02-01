@@ -2,8 +2,6 @@
 #'
 #'@description This function predicts post-hurricane individual tree-level damage from TLS derived 2D images
 #'
-#'@usage predict_treedamage(input_file_path, model, weights, target_size, class_list, batch_size)
-#'
 #'@param input_file_path A character string describing the path to the images to predict, e.g.: "C:/test_data/".
 #'@param model_type A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".
 #'@param weights A character string indicating the filename of the weights to use for prediction.

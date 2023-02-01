@@ -4,7 +4,15 @@
 \alias{get_dl_model}
 \title{Selecting deep learning modeling approaches}
 \usage{
-get_dl_model(model_type, img_width, img_height, channels, lr_rate, tensorflow_dir, class_list)
+get_dl_model(
+  model_type = "vgg",
+  img_width = 256,
+  img_height = 256,
+  lr_rate = 1e-04,
+  tensorflow_dir = NA,
+  channels,
+  class_list
+)
 }
 \arguments{
 \item{model_type}{A character string describing the deep learning model to be used. Available models: "vgg", "resnet", "inception", "densenet", "efficientnet", "simple".}

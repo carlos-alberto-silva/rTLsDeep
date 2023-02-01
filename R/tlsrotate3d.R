@@ -2,8 +2,6 @@
 #'
 #'@description This function rotates TLS-derived 3D Point Clouds
 #'
-#'@usage tlsrotate3d(las,theta, by)
-#'
 #'@param las An object of class LAS [lidR::readLAS()].
 ##'@param theta Numeric defining the angle in degrees (from 0 to 360) for rotating the 3d point cloud.
 #'@param by Character defining the rotation around x ('x'), y ('y') or z ('z') axis. Default: around z-axis.

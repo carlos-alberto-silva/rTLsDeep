@@ -2,8 +2,6 @@
 #'
 #'@description This function calculates a cross-tabulation of reference and predicted classes with associated statistics based on the deep learning models.
 #'
-#'@usage confmatrix_treedamage(predict_class, test_classes, class_list)
-#'
 #'@param predict_class A vector with the predicted classes. This is the output from the predict_treedamage function.
 #'@param test_classes A vector with the predicted classes. This is the output from the get_validation_classes function.
 #'@param class_list A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").

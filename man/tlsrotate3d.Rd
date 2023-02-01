@@ -4,7 +4,7 @@
 \alias{tlsrotate3d}
 \title{Rotate TLS-derived 3D Point Clouds}
 \usage{
-tlsrotate3d(las,theta, by)
+tlsrotate3d(las, theta, by = "z", scale = TRUE)
 }
 \arguments{
 \item{las}{An object of class LAS [lidR::readLAS()].}
