@@ -22,23 +22,61 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        r-version: ['release']
+        r_version: [
+          'release',
+          'devel',
+        ]
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up R ${{ matrix.r-version }}
+      - name: Set up R ${{ matrix.r_version }}
         uses: r-lib/actions/setup-r@f57f1301a053485946083d7a45022b278929a78a
         with:
-          r-version: ${{ matrix.r-version }}
+          r-version: ${{ matrix.r_version }}
 
-      - name: Install
+      - name: Configure .libPaths
         run: |
-          install.packages('remotes')
-          install.packages('rcmdcheck')
+          mkdir ~/r-lib
+          chmod 777 ~/r-lib
+          echo ".libPaths(c('~/r-lib', '/usr/local/lib/R/site-library', '/usr/lib/R/site-library', '/usr/lib/R/library'))" > ~/.Rprofile
+          echo "options(repos = 'https://cloud.r-project.org/')" >> ~/.Rprofile
+          echo "Sys.setenv(TZ='UTC')" >> ~/.Rprofile
+        shell: bash
+
+      - name: Install R binary packages
+        if: matrix.r_version == 'release'
+        run: |
+          sudo add-apt-repository ppa:c2d4u.team/c2d4u4.0+
+          sudo add-apt-repository ppa:ubuntugis/ppa
+          sudo apt update && sudo apt install r-cran-rgl r-cran-reticulate r-cran-keras r-cran-ggplot2 r-cran-viridis r-cran-lidr r-cran-caret r-cran-rcmdcheck
+        shell: bash
+
+      - name: Install system dependencies
+        if: matrix.r_version == 'devel'
+        run: |
+          sudo add-apt-repository ppa:ubuntugis/ppa
+          sudo apt update && sudo apt install libudunits2-dev libgdal-dev libproj-dev libgeotiff-dev libpng-dev libgl1-mesa-dev libcurl4-openssl-dev libxml2-dev pandoc
+        shell: bash
+
+      - name: Install required R packages
+        if: matrix.r_version == 'devel'
+        run: |
+          install.packages(c('remotes', 'rcmdcheck'))
           remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+        
+      - name: Install tensorflow and other python modules
+        run: |
+          library(reticulate)
+          library(tensorflow)
+          
+          reticulate::py_install(c('pillow','numpy','scipy'))
+          install_tensorflow()
         shell: Rscript {0}
 
       - name: Check
-        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
+        run: |
+          rcmdcheck::rcmdcheck(args = c('--no-manual', '--as-cran'), error_on = 'error')
         shell: Rscript {0}
+        
