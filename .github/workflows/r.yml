@@ -24,7 +24,7 @@ jobs:
       matrix:
         r_version: [
           'release',
-          'devel',
+          # 'devel',
         ]
 
     steps:

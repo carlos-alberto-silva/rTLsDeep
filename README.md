@@ -254,6 +254,24 @@ gcmplot_vgg<-gcmplot(cm,
 ![](https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/cm.png)
 
 
+### Finding the best rotation
+
+```
+# Find the best angle and perform rotation
+(best_angle_c2 = get_best_angle(tree_c2))
+rotated_c2 = tlsrotate3d(tree_c2, theta = best_angle_c2)
+
+# computing 2D grid snapshot
+gtree_rotated_c2<-getTLS2D(rotated_c2, res=0.05, by="xz", func = func, scale=TRUE)
+
+# Visualizing 2D grid snapshot
+par(mfrow=c(1,2))
+plot(gtree_c2, col=viridis::viridis(100),axes=FALSE, legend=FALSE, xlab="",ylab="", ylim=c(0,30), main="C2",cex=2)
+plot(gtree_rotated_c2, col=viridis::viridis(100),axes=FALSE, legend=FALSE, xlab="",ylab="", ylim=c(0,30), main=gettextf("C2 (best %s°)", round(best_angle_c2,0)),cex=2)
+```
+<img src="https://github.com/carlos-alberto-silva/rTLsDeep/blob/main/readme/tree_rotation.png" style="width:50%;">
+
+
 # Working example using Google Colab:
 
 <https://colab.research.google.com/drive/1YnvIca1FtHqIYwWKmp5zoPOz1Zonm7NR?usp=sharing>
