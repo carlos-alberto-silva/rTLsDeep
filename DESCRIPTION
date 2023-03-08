@@ -5,8 +5,9 @@ Version: 0.0.1
 Authors@R: c(
     person("Carine", "Klauberg", email = "carine_klauberg@hotmail.com", role = c("aut","cre")),
     person("Ricardo", "Dalagnol", email = "r.valbuena@bangor.ac.uk", role = c("aut","cph")),
-    person("Matheus", "Ferreira", email = "caiohamamura@gmail.com", role = c("aut", "ctb")),
-    person("Jason", "Vogel", email = "steven.hancock@ed.ac.uk", role = c("aut","ctb")),
+    person("Matheus", "Ferreira", email = "", role = c("aut", "ctb")),
+    person("Jason", "Vogel", email = "", role = c("aut","ctb")),
+    person("Caio", "Hamamura", email = "caiohamamura@gmail.com", role = c("aut", "ctb")),
     person("Carlos Alberto", "Silva", email = "carlos_engflorestal@outlook.com", role = c("aut","cph")))
 Description: Set of tools for post-hurricane individual tree-level damage classification from terrestrial laser scanning and deep learning.
 License: GPL-3
@@ -19,6 +20,7 @@ Imports:
   grDevices,
   lidR,
   keras,
+  matrixStats,
   reticulate,
   rgl,
   sf,

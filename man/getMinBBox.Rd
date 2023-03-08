@@ -4,14 +4,13 @@
 \alias{getMinBBox}
 \title{Rotating calipers algorithm}
 \usage{
-getMinBBox(xy)
+getMinBBox(hull)
 }
 \arguments{
-\item{xy}{A matrix of xy values from which to calculate the minimum oriented
-bounding box.}
+\item{hull}{A matrix of xy values from a convex hull from which
+will calculate the minimum oriented bounding box.}
 }
 \description{
 Calculates the minimum oriented bounding box using the
 rotating calipers algorithm.
-Credits go to Daniel Wollschlaeger <https://github.com/ramnathv>
 }
