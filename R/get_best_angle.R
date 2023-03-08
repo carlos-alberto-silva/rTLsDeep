@@ -34,10 +34,10 @@ getMinBBox <- function(hull) {
   widths <- numeric(n)
   heights <- numeric(n)
 
-  rangeH = matrixStats::rowRanges(projHu)
-  rangeO = matrixStats::rowRanges(projOu)
-  widths = matrixStats::rowDiffs(rangeH)
-  heights = matrixStats::rowDiffs(rangeO)
+  rangeH <- matrixStats::rowRanges(projHu)
+  rangeO <- matrixStats::rowRanges(projOu)
+  widths <- matrixStats::rowDiffs(rangeH)
+  heights <- matrixStats::rowDiffs(rangeO)
 
   ## extreme projections for min-area rect in subspace coordinates
   ## hull edge leading to minimum-area

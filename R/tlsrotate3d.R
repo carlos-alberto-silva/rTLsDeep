@@ -20,7 +20,7 @@
 #'las<-lidR::readLAS(lasfile)
 #'
 #'# Visualizing las file
-#'lidR::plot(las)
+#'suppressWarnings(lidR::plot(las))
 #'
 #'# Rotating 3d point cloud around Z-axis
 #'lasr<-tlsrotate3d(las,theta=180, by="x", scale=TRUE)

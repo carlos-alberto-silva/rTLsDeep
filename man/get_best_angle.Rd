@@ -15,10 +15,9 @@ Returns a list containing the model object with the required parameters and mode
 \description{
 Calculates the minimum oriented bounding box using the
 rotating calipers algorithm and extracts the angle
-Credits go to Daniel Wollschlaeger <https://github.com/ramnathv>
 }
 \examples{
-lasfile <- system.file("extdata", "tree_c1.laz", package = "rTLsDeep")
+lasfile <- system.file("extdata", "tree_c2.laz", package = "rTLsDeep")
 las <- lidR::readLAS(lasfile)
 
 (get_best_angle(las))

@@ -37,6 +37,7 @@ This function selects and returns the deep learning approach to be used with the
 post-hurricane individual tree-level damage classification.
 }
 \examples{
+\donttest{
 # Set directory to tensorflow (python environment)
 # This is required if running deep learning local computer with GPU
 # Guide to install here: https://doi.org/10.5281/zenodo.3929709
@@ -61,6 +62,10 @@ target_size <- c(img_width, img_height)
 channels = 4
 
 # get model
+if (reticulate::py_module_available('tensorflow') == FALSE)
+{
+ tensorflow::install_tensorflow()
+}
 model = get_dl_model(model_type=model_type,
                     img_width=img_width,
                     img_height=img_height,
@@ -68,6 +73,6 @@ model = get_dl_model(model_type=model_type,
                     lr_rate = lr_rate,
                     tensorflow_dir = tensorflow_dir,
                     class_list = class_list_train)
-
+}
 
 }

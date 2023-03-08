@@ -14,6 +14,7 @@
 #'@return Returns a list containing the model object with the required parameters and model_type used.
 #'
 #'@examples
+#'\donttest{
 #'# Set directory to tensorflow (python environment)
 #'# This is required if running deep learning local computer with GPU
 #'# Guide to install here: https://doi.org/10.5281/zenodo.3929709
@@ -40,6 +41,10 @@
 #'channels = 4
 #'
 #'# get model
+#'if (reticulate::py_module_available('tensorflow') == FALSE)
+#'{
+#'  tensorflow::install_tensorflow()
+#'}
 #'model = get_dl_model(model_type=model_type,
 #'                     img_width=img_width,
 #'                     img_height=img_height,
@@ -47,7 +52,7 @@
 #'                     lr_rate = lr_rate,
 #'                     tensorflow_dir = tensorflow_dir,
 #'                     class_list = class_list_train)
-#'
+#'}
 #'
 #'@importFrom keras layer_input layer_conv_2d layer_activation layer_activation_leaky_relu layer_batch_normalization layer_max_pooling_2d layer_dropout layer_flatten layer_dense keras_model application_vgg16 application_resnet152_v2 application_inception_v3 application_densenet201 application_efficientnet_b7 optimizer_adam compile %>%
 #'@importFrom reticulate use_python

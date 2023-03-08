@@ -66,6 +66,11 @@ batch_size = 8L
 epochs = 2L
 
 # get model
+if (reticulate::py_module_available('tensorflow') == FALSE)
+{
+ tensorflow::install_tensorflow()
+}
+
 model = get_dl_model(model_type=model_type,
                     img_width=img_width,
                     img_height=img_height,
