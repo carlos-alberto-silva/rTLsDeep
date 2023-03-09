@@ -24,7 +24,7 @@
 #'las<-readLAS(lasfile)
 #'
 #'# Visualizing las file
-#'plot(las)
+#'suppressWarnings(plot(las))
 #'
 #'# Creating a 2D grid snapshot
 #'func = ~list(Z = max(Z))

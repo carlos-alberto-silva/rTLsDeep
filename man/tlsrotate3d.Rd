@@ -37,7 +37,7 @@ suppressWarnings(lidR::plot(las))
 lasr<-tlsrotate3d(las,theta=180, by="x", scale=TRUE)
 
 # Visualizing rotated las file
-lidR::plot(lasr)
+suppressWarnings(lidR::plot(lasr))
 
 if (!rgl::rgl.useNULL())
  rgl::play3d(rgl::spin3d(axis = c(0, 0, 1), rpm = 5), duration = 10)
