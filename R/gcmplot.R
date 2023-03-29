@@ -60,8 +60,5 @@ gcmplot<-function(cm,colors=c(low="white", high="#009194"), title="cm", prop=TRU
 
   }
 
-
-  print(g)
-
   return(g)
 }
