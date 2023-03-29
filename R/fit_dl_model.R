@@ -5,6 +5,7 @@
 #'@param model A model object output of the get_dl_model function. See [rTLsDeep::get_dl_model()].
 #'@param train_input_path A character string describing the path to the training dataset, e.g.: "C:/train_data/".
 #'@param test_input_path A character string describing the path to the testing dataset, e.g.: "C:/test_data/".
+#'@param output_path A character string describing the path where to save the weights for the neural network.
 #'@param target_size A vector of two values describing the image dimensions (Width and height) to be used in the model. Default: c(256,256)
 #'@param batch_size A numerical value indicating the number of images to be processed at the same time. Reduce the batch_size if the GPU is giving memory errors.
 #'@param class_list A character string or numeric value describing the post-hurricane individual tree level damage classes, e.g.: c("1","2","3","4","5","6").
@@ -75,7 +76,7 @@
 #'}
 #'@import keras tensorflow
 #'@export
-fit_dl_model = function(model, train_input_path, test_input_path, target_size = c(256,256), batch_size = 8, class_list, epochs = 20L, lr_rate = 0.0001) {
+fit_dl_model = function(model, train_input_path, test_input_path, output_dir = tempdir(), target_size = c(256,256), batch_size = 8, class_list, epochs = 20L, lr_rate = 0.0001) {
 
   # get number of classes
   output_n = length(class_list)
@@ -122,7 +123,7 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
                                                              classes = NULL,
                                                              batch = batch_size,
                                                              seed = 42)
-  cat("Number of images per class:")
+  message("Number of images per class:")
 
   table(factor(train_image_array_gen$classes))
   table(factor(valid_image_array_gen$classes))
@@ -136,13 +137,19 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
   valid_samples <- valid_image_array_gen$n
 
 
+  # directories
+  epoch_history_path = dir.create(file.path(output_path, 'epoch_history'))
+  epoch_history_filepath = file.path(epoch_history_path, 'epoch_history.csv')
+  weights_path = dir.create(file.path(output_path, 'weights'))
+  weights_r_path = dir.create(file.path(output_path, 'weights_r_save'))
+
   # # callbacks
-  dir.create("./epoch_history/", showWarnings=F)
-  dir.create("./weights/", showWarnings=F)
-  dir.create("./weights_r_save/", showWarnings=F)
+  dir.create(epoch_history_path, showWarnings=F)
+  dir.create(weights_path, showWarnings=F)
+  dir.create(weights_r_path, showWarnings=F)
 
   # clear weights
-  unlink(list.files("./weights/", full.names=T))
+  unlink(list.files(weights_path, full.names=T))
 
 
   ## Train the model
@@ -157,8 +164,8 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
 
   # call backs
   callbacks_list = list(
-    keras::callback_csv_logger(paste0("./epoch_history/epoch_history.csv"), separator = ";", append = FALSE),
-    keras::callback_model_checkpoint(filepath = paste0("./weights/model_{epoch:05d}_{val_accuracy:.4f}.h5"),
+    keras::callback_csv_logger(epoch_history_filepath),
+    keras::callback_model_checkpoint(filepath = file.path(weights_path, "model_{epoch:05d}_{val_accuracy:.4f}.h5"),
                                      monitor = "val_accuracy",save_best_only = TRUE,
                                      save_weights_only = TRUE, mode = "max" ,save_freq = NULL)
   )
@@ -180,15 +187,13 @@ fit_dl_model = function(model, train_input_path, test_input_path, target_size = 
   py_gc$collect()
 
   # copy the best weight to the save folder
-  weight_fname = rev(list.files("weights", pattern = ".h5", full.names=T))[1]
+  weight_fname = rev(list.files(weights_path, pattern = ".h5", full.names=T))[1]
   weight_fname2 = sub("weights", "weights_r_save", weight_fname)
   file.copy(weight_fname, weight_fname2)
-  file.copy("epoch_history\\epoch_history.csv", sub(".h5", ".csv", weight_fname2))
-  print(paste0("The best weight was saved in weights_r_save folder, named: ", weight_fname2))
+  file.copy(epoch_history_filepath, sub(".h5", ".csv", weight_fname2))
+  message(paste0("The best weight was saved in weights_r_save folder, named: ", weight_fname2))
 
   # return
   return(weight_fname2)
-
-
 }
 

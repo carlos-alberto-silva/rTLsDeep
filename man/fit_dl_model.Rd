@@ -8,6 +8,7 @@ fit_dl_model(
   model,
   train_input_path,
   test_input_path,
+  output_dir = tempdir(),
   target_size = c(256, 256),
   batch_size = 8,
   class_list,
@@ -31,6 +32,8 @@ fit_dl_model(
 \item{epochs}{A numeric value indicating the number of iterations to train the model. Use at least 20 for pre-trained models, and at least 200 for a model without pre-trained weights.}
 
 \item{lr_rate}{A numeric value indicating the learning rate. Default: 0.0001.}
+
+\item{output_path}{A character string describing the path where to save the weights for the neural network.}
 }
 \value{
 Returns a character string indicating the filename of the best weights trained for the chosen model.
