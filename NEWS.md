@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# rTLsDeep 0.0.4 (2023-03-29)
+
+* Fix mistype in fit_dl_model argument name
+
+
 0.0.2: 
 
  - First submission
