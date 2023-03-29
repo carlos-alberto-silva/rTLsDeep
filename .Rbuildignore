@@ -3,3 +3,4 @@
 readme
 .github
 .vscode
+^CRAN-SUBMISSION$
