@@ -1,6 +1,6 @@
 #'Plot confusion matrix
 #'
-#'@description This function plots the confusion matrix for classification assessement
+#'@description This function plots the confusion matrix for classification assessment
 #'
 #'@param cm An confusion matrix object of class "confusionMatrix". Output of the [rTLsDeep::confmatrix_damage()] function.
 #'@param colors A vector defining the low and high colors. Default is c(low="white", high="#009194").

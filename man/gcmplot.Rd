@@ -24,7 +24,7 @@ gcmplot(
 Returns an object of class gg and ggplot and plot of the confusion matrix.
 }
 \description{
-This function plots the confusion matrix for classification assessement
+This function plots the confusion matrix for classification assessment
 }
 \examples{
 
