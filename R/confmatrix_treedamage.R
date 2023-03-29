@@ -86,7 +86,6 @@ confmatrix_treedamage = function(predict_class, test_classes, class_list) {
 
   # confusion matrix
   cm = caret::confusionMatrix(pred, ref)
-  print(cm)
 
   # return
   return(cm)
