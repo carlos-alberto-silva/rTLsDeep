@@ -7,9 +7,9 @@ Authors@R: c(
     person("Ricardo", "Dalagnol", email = "r.valbuena@bangor.ac.uk", role = c("aut","cph")),
     person("Matheus", "Ferreira", email = "", role = c("aut", "ctb")),
     person("Jason", "Vogel", email = "", role = c("aut","ctb")),
-    person("Caio", "Hamamura", email = "caiohamamura@gmail.com", role = c("aut", "ctb")),
-    person("Carlos Alberto", "Silva", email = "carlos_engflorestal@outlook.com", role = c("aut","cph", "cre")))
-Description: Terrestrial laser scanning (TLS) data processing and post-hurricane damage severity classification at the individual tree level using deep Learning. Further details were published in Klaubert et al. (2023) <doi:10.3390/rs15041165>.
+    person("Caio", "Hamamura", email = "caiohamamura@gmail.com", role = c("aut", "ctb", "cre")),
+    person("Carlos Alberto", "Silva", email = "carlos_engflorestal@outlook.com", role = c("aut","cph")))
+Description: Terrestrial laser scanning (TLS) data processing and post-hurricane damage severity classification at the individual tree level using deep Learning. Further details were published in Klauberg et al. (2023) <doi:10.3390/rs15041165>.
 License: GPL-3
 Encoding: UTF-8
 Depends:
