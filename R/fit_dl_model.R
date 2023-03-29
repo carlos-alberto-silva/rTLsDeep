@@ -76,7 +76,7 @@
 #'}
 #'@import keras tensorflow
 #'@export
-fit_dl_model = function(model, train_input_path, test_input_path, output_dir = tempdir(), target_size = c(256,256), batch_size = 8, class_list, epochs = 20L, lr_rate = 0.0001) {
+fit_dl_model = function(model, train_input_path, test_input_path, output_path = tempdir(), target_size = c(256,256), batch_size = 8, class_list, epochs = 20L, lr_rate = 0.0001) {
 
   # get number of classes
   output_n = length(class_list)

@@ -8,7 +8,7 @@ fit_dl_model(
   model,
   train_input_path,
   test_input_path,
-  output_dir = tempdir(),
+  output_path = tempdir(),
   target_size = c(256, 256),
   batch_size = 8,
   class_list,
@@ -23,6 +23,8 @@ fit_dl_model(
 
 \item{test_input_path}{A character string describing the path to the testing dataset, e.g.: "C:/test_data/".}
 
+\item{output_path}{A character string describing the path where to save the weights for the neural network.}
+
 \item{target_size}{A vector of two values describing the image dimensions (Width and height) to be used in the model. Default: c(256,256)}
 
 \item{batch_size}{A numerical value indicating the number of images to be processed at the same time. Reduce the batch_size if the GPU is giving memory errors.}
@@ -32,8 +34,6 @@ fit_dl_model(
 \item{epochs}{A numeric value indicating the number of iterations to train the model. Use at least 20 for pre-trained models, and at least 200 for a model without pre-trained weights.}
 
 \item{lr_rate}{A numeric value indicating the learning rate. Default: 0.0001.}
-
-\item{output_path}{A character string describing the path where to save the weights for the neural network.}
 }
 \value{
 Returns a character string indicating the filename of the best weights trained for the chosen model.
