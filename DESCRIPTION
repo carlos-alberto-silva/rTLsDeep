@@ -1,7 +1,7 @@
 Package: rTLsDeep
 Type: Package
 Title: Post-Hurricane Damage Severity Classification from TLS and AI
-Version: 0.0.5
+Version: 0.0.5.9000
 Authors@R: c(
     person("Carine", "Klauberg", email = "carine_klauberg@hotmail.com", role = c("aut")),
     person("Ricardo", "Dalagnol", email = "r.valbuena@bangor.ac.uk", role = c("aut","cph")),

@@ -1,5 +1,11 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# rTLsDeep 0.0.5.9000 (2023-03-30)
+
+* Add cran-comments to .Rbuildignore
+* Use devtools submission system
+
+
 # rTLsDeep 0.0.5 (2023-03-29)
 
 * Add cran-comments to .Rbuildignore
