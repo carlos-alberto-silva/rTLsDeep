@@ -60,6 +60,7 @@ batch_size = 8L
 epochs = 20L
 
 # get model
+rtlsdeep_setup()
 model = get_dl_model(model_type=model_type,
                     img_width=img_width,
                     img_height=img_height,
