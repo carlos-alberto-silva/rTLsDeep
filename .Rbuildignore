@@ -5,3 +5,4 @@ readme
 .vscode
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+Dockerfile
