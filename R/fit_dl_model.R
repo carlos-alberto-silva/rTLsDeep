@@ -45,11 +45,8 @@
 #'epochs = 2L
 #'
 #'# get model
-#'if (reticulate::py_module_available('tensorflow') == FALSE)
-#'{
-#'  tensorflow::install_tensorflow()
-#'}
-#' 
+#'rtlsdeep_setup()
+#'
 #'model = get_dl_model(model_type=model_type,
 #'                     img_width=img_width,
 #'                     img_height=img_height,
@@ -196,4 +193,3 @@ fit_dl_model = function(model, train_input_path, test_input_path, output_path = 
   # return
   return(weight_fname2)
 }
-
