@@ -4,3 +4,4 @@ readme
 .github
 .vscode
 ^CRAN-SUBMISSION$
+^cran-comments\.md$
