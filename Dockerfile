@@ -26,6 +26,11 @@ RUN apt install --no-install-recommends r-cran-ps r-cran-backports r-cran-rstudi
 RUN ["Rscript", "-e", "remotes::install_deps(dependencies=TRUE, upgrade='never')"]
 RUN ["Rscript", "-e", "remotes::install_local('.', dependencies=FALSE)"]
 
+RUN git pull
+
+RUN apt install python3.11-venv -y
+ENV _R_CHECK_CRAN_INCOMING_ false
+
 RUN R CMD build .
 RUN R CMD check rTLsDeep_$(sed -n 's/Version: \(.*\)/\1/p' DESCRIPTION).tar.gz --as-cran --no-manual
 
