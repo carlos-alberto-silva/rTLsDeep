@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# rTLsDeep 0.0.6 (2023-08-19)
+
+* Update package overview file according to the new Roxygen2 specification
+* Add Dockerfile for container checking
+* Add rtlsdeep_setup for setting up the environment
+
+
 # rTLsDeep 0.0.5.9000 (2023-03-30)
 
 * Add cran-comments to .Rbuildignore
