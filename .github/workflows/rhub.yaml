@@ -106,32 +106,35 @@ jobs:
     env:
       RGL_USE_NULL: true
       RTLSDEEP_E2E_TEST: "true"
+      TF_CPP_MIN_LOG_LEVEL: "2"
     strategy:
       fail-fast: false
       matrix:
-        config: ${{ fromJson(needs.setup.outputs.platforms) }}
+        include:
+          - label: "Windows (R-devel)"
+            os: windows-latest
+            job-config: '{"r": "devel", "platform": "windows-x86_64"}'
 
     steps:
       - uses: r-hub/actions/checkout@v1
       - uses: r-hub/actions/setup-r@v1
         with:
-          job-config: ${{ matrix.config.job-config }}
+          job-config: ${{ matrix.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
       - uses: r-hub/actions/platform-info@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
-          job-config: ${{ matrix.config.job-config }}
+          job-config: ${{ matrix.job-config }}
       - uses: r-hub/actions/setup-deps@v1
         with:
-          job-config: ${{ matrix.config.job-config }}
+          job-config: ${{ matrix.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
-      - name: Setup Python and TensorFlow (Windows)
-        if: contains(matrix.config.label, 'Windows')
+      - name: Setup Python and TensorFlow
         shell: bash
         run: |
           python -m pip install --upgrade pip
           pip install tensorflow numpy scipy pillow
       - uses: r-hub/actions/run-check@v1
         with:
-          job-config: ${{ matrix.config.job-config }}
+          job-config: ${{ matrix.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
