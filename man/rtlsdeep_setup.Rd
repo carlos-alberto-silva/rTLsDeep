@@ -4,14 +4,23 @@
 \alias{rtlsdeep_setup}
 \title{Setup python and tensorflow environment}
 \usage{
-rtlsdeep_setup(python_version = "3.12")
+rtlsdeep_setup(
+  python_version = ">=3.9,<=3.12",
+  envname = "r-rtlsdeep"
+)
 }
 \arguments{
-\item{python_version}{Character string with Python version to install if not found. Default: "3.12".}
+\item{python_version}{Character string with Python version constraint,
+passed to \code{reticulate::virtualenv_create}. Default: \code{">=3.9,<=3.12"}.}
+
+\item{envname}{Name of the Python virtual environment to create or reuse.
+Default: \code{"r-rtlsdeep"}. Can be overridden by the \code{RETICULATE_PYTHON_ENV}
+environment variable.}
 }
 \value{
-Nothing
+Nothing, called for side effects.
 }
 \description{
-Setup python and tensorflow environment
+Uses reticulate/keras3 APIs (platform-agnostic) to create a self-contained
+Python virtual environment and install TensorFlow + dependencies.
 }

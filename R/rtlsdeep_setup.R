@@ -20,12 +20,22 @@ rtlsdeep_setup = function(python_version = ">=3.9,<=3.12",
     envname <- env_override
   }
 
-  # 1. Try existing virtualenv — virtualenv_find() does NOT initialize
-  #    reticulate, so it's safe to call before use_virtualenv().
+  # 1. Try existing virtualenv — look it up without initializing reticulate.
+  #    Use reticulate::virtualenv_find if available, otherwise check known paths.
   venv_python <- tryCatch(
     reticulate::virtualenv_find(envname),
     error = function(e) NULL
   )
+  if (is.null(venv_python)) {
+    known_paths <- c(
+      file.path(Sys.getenv("HOME", Sys.getenv("USERPROFILE", "")), ".virtualenvs", envname, "bin", "python"),
+      file.path(Sys.getenv("WORKSPACE", ""), ".virtualenvs", envname, "bin", "python"),
+      file.path(Sys.getenv("HOME", Sys.getenv("USERPROFILE", "")), ".virtualenvs", envname, "Scripts", "python.exe"),
+      file.path(tempdir(), "virtualenvs", envname, "bin", "python"),
+      file.path(tempdir(), "virtualenvs", envname, "Scripts", "python.exe")
+    )
+    venv_python <- known_paths[file.exists(known_paths)][1]
+  }
   if (!is.null(venv_python)) {
     reticulate::use_virtualenv(envname, required = TRUE)
     if (reticulate::py_module_available('tensorflow')) {
