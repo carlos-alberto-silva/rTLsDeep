@@ -101,34 +101,36 @@ jobs:
   windows-e2e:
     needs: setup
     if: ${{ needs.setup.outputs.platforms != '[]' }}
-    runs-on: ${{ matrix.os }}
-    name: "${{ matrix.label }} (E2E)"
+    runs-on: ${{ matrix.config.os }}
+    name: "${{ matrix.config.label }} (E2E)"
     env:
       RGL_USE_NULL: true
-      RTLSDEEP_E2E_TEST: "true"
       TF_CPP_MIN_LOG_LEVEL: "2"
       RETICULATE_PYTHON_ENV: "r-rtlsdeep"
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - label: "Windows (R-devel)"
-            os: windows-latest
-            job-config: '{"r": "devel", "platform": "windows-x86_64"}'
+        config: ${{ fromJson(needs.setup.outputs.platforms) }}
+        exclude:
+          - config:
+              label: "linux (R-devel)"
+          - config:
+              label: "m1-san (R-devel)"
 
     steps:
+      - run: echo "RTLSDEEP_E2E_TEST=true" >> "$GITHUB_ENV"
       - uses: r-hub/actions/checkout@v1
       - uses: r-hub/actions/setup-r@v1
         with:
-          job-config: ${{ matrix.job-config }}
+          job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
       - uses: r-hub/actions/platform-info@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
-          job-config: ${{ matrix.job-config }}
+          job-config: ${{ matrix.config.job-config }}
       - uses: r-hub/actions/setup-deps@v1
         with:
-          job-config: ${{ matrix.job-config }}
+          job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
       - name: Setup Python and TensorFlow from R (optional)
         continue-on-error: true
@@ -145,6 +147,6 @@ jobs:
           )
       - uses: r-hub/actions/run-check@v1
         with:
-          job-config: ${{ matrix.job-config }}
+          job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
 
