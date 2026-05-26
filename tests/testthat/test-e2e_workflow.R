@@ -9,6 +9,9 @@ skip_e2e = function() {
   if (!reticulate::py_available(initialize = TRUE)) {
     skip("Python is not available")
   }
+  if (!reticulate::py_module_available("tensorflow")) {
+    skip("TensorFlow is not available")
+  }
 }
 
 test_that("e2e: TLS data processing pipeline (load, rotate, 2D grid)", {
