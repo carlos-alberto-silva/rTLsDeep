@@ -81,13 +81,19 @@ fit_dl_model = function(model, train_input_path, test_input_path, output_path = 
 
   ## Data generator
 
+  # Determine color mode from model input shape
+  input_shape <- model$input_shape
+  n_channels <- ifelse(length(input_shape) >= 4, input_shape[4], 3)
+  color_mode <- ifelse(n_channels == 4, "rgba", "rgb")
+
   # training images
   train_ds <- keras3::image_dataset_from_directory(
     train_input_path,
     label_mode = "categorical",
     image_size = target_size,
     batch_size = batch_size,
-    seed = 42
+    seed = 42,
+    color_mode = color_mode
   )
 
   # validation images
@@ -97,7 +103,8 @@ fit_dl_model = function(model, train_input_path, test_input_path, output_path = 
     image_size = target_size,
     batch_size = batch_size,
     seed = 42,
-    shuffle = FALSE
+    shuffle = FALSE,
+    color_mode = color_mode
   )
 
   # count samples

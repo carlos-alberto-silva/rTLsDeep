@@ -73,7 +73,7 @@ get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, l
   if (model_type == "simple") {
 
     # define inputs
-    inputs <- keras3::layer_input(shape = c(img_width, img_height, 3L))
+    inputs <- keras3::layer_input(shape = c(img_width, img_height, channels))
 
     # define outputs
     outputs <- inputs %>%
@@ -121,22 +121,22 @@ get_dl_model = function(model_type = "vgg", img_width = 256, img_height = 256, l
   if (model_type != "simple") {
 
     # initialise model VGG16
-    if (model_type == "vgg") conv_base <- keras3::application_vgg16(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, 3))
+    if (model_type == "vgg") conv_base <- keras3::application_vgg16(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, channels))
 
     # initialise model ResNet
-    if (model_type == "resnet") conv_base <- keras3::application_resnet152_v2(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, 3))
+    if (model_type == "resnet") conv_base <- keras3::application_resnet152_v2(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, channels))
 
     # initialise model InceptionV3
-    if (model_type == "inception") conv_base <- keras3::application_inception_v3(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, 3))
+    if (model_type == "inception") conv_base <- keras3::application_inception_v3(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, channels))
 
     # initialise model DenseNet
-    if (model_type == "densenet") conv_base <- keras3::application_densenet201(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, 3))
+    if (model_type == "densenet") conv_base <- keras3::application_densenet201(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, channels))
 
     # initialise model EfficientNet
-    if (model_type == "efficientnet") conv_base <- keras3::application_efficientnet_b7(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, 3))
+    if (model_type == "efficientnet") conv_base <- keras3::application_efficientnet_b7(weights = 'imagenet', include_top = FALSE, input_shape = c(img_width, img_height, channels))
 
     # define inputs
-    inputs <- keras3::layer_input(shape = c(img_width, img_height, 3))
+    inputs <- keras3::layer_input(shape = c(img_width, img_height, channels))
 
     # define outputs
     outputs <- inputs %>%

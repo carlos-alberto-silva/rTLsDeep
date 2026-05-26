@@ -20,10 +20,15 @@ The rTLSDeep package provides options for i) rotating and deriving 2D images fro
 1. *R >= 4.0.0*: https://www.r-project.org/
 1. *Rtools >= 4 (windows)*: https://cran.r-project.org/bin/windows/Rtools/
 1. *Git*: https://git-scm.com/
-1. *tensorflow (python)*: https://doi.org/10.5281/zenodo.3929709
-1. *numpy (python)*
-1. *scipy (python)*
-1. *pillow (python - recommended)*
+1. *pip*: https://pip.pypa.io/
+1. *Python >= 3.10*: https://www.python.org/ (or install via micromamba: `micromamba create -n rtlsdeep-tf python=3.12 tensorflow numpy scipy pillow -y`)
+
+**Python dependencies:**
+```bash
+pip install tensorflow numpy scipy pillow
+```
+
+**Note:** rTLsDeep uses **keras3** (Keras 3) under the hood, compatible with TensorFlow ≥2.16.
 
 ## rTLsDeep installation
 ```r
@@ -45,7 +50,7 @@ install.packages("pacman")
 
 #load pcaman and all packages
 library(pacman)
-p_load(rTLsDeep,lidR,rgl,ggplot2,rgl,keras,reticulate,compiler,terra)
+p_load(rTLsDeep,lidR,rgl,ggplot2,keras3,reticulate,compiler,terra)
 ```
 
 ## TLS data processing

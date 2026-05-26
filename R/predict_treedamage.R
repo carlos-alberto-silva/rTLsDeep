@@ -82,6 +82,11 @@ predict_treedamage = function(model, input_file_path, weights, target_size = c(2
   # load weights
   keras3::load_model_weights(model, weights)
 
+  # Determine color mode from model input shape
+  input_shape <- model$input_shape
+  n_channels <- ifelse(length(input_shape) >= 4, input_shape[4], 3)
+  color_mode <- ifelse(n_channels == 4, "rgba", "rgb")
+
   # validation images
   valid_ds <- keras3::image_dataset_from_directory(
     input_file_path,
@@ -89,7 +94,8 @@ predict_treedamage = function(model, input_file_path, weights, target_size = c(2
     image_size = target_size,
     batch_size = batch_size,
     shuffle = FALSE,
-    seed = 42
+    seed = 42,
+    color_mode = color_mode
   )
 
   # predict for validation dataset
