@@ -6,12 +6,6 @@ skip_e2e = function() {
   if (isFALSE(as.logical(Sys.getenv("RTLSDEEP_E2E_TEST", "FALSE")))) {
     skip("RTLSDEEP_E2E_TEST is not set to TRUE")
   }
-  if (!reticulate::py_available(initialize = TRUE)) {
-    skip("Python is not available")
-  }
-  if (!reticulate::py_module_available("tensorflow")) {
-    skip("TensorFlow is not available")
-  }
 }
 
 test_that("e2e: TLS data processing pipeline (load, rotate, 2D grid)", {
