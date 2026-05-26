@@ -22,10 +22,6 @@ on:
       id:
         description: 'Unique ID. You can leave this empty now.'
         type: string
-      e2e:
-        description: 'Enable E2E tests (Python/TensorFlow setup + RTLSDEEP_E2E_TEST)'
-        type: boolean
-        default: false
 
 jobs:
 
@@ -97,11 +93,40 @@ jobs:
         with:
           job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
-      - name: Set E2E environment variable (Windows)
-        if: ${{ github.event.inputs.e2e == true && contains(matrix.config.label, 'Windows') }}
-        run: echo "RTLSDEEP_E2E_TEST=true" >> "$GITHUB_ENV"
+      - uses: r-hub/actions/run-check@v1
+        with:
+          job-config: ${{ matrix.config.job-config }}
+          token: ${{ secrets.RHUB_TOKEN }}
+
+  windows-e2e:
+    needs: setup
+    if: ${{ needs.setup.outputs.platforms != '[]' }}
+    runs-on: ${{ matrix.config.os }}
+    name: "${{ matrix.config.label }} (E2E)"
+    env:
+      RGL_USE_NULL: true
+      RTLSDEEP_E2E_TEST: "true"
+    strategy:
+      fail-fast: false
+      matrix:
+        config: ${{ fromJson(needs.setup.outputs.platforms) }}
+
+    steps:
+      - uses: r-hub/actions/checkout@v1
+      - uses: r-hub/actions/setup-r@v1
+        with:
+          job-config: ${{ matrix.config.job-config }}
+          token: ${{ secrets.RHUB_TOKEN }}
+      - uses: r-hub/actions/platform-info@v1
+        with:
+          token: ${{ secrets.RHUB_TOKEN }}
+          job-config: ${{ matrix.config.job-config }}
+      - uses: r-hub/actions/setup-deps@v1
+        with:
+          job-config: ${{ matrix.config.job-config }}
+          token: ${{ secrets.RHUB_TOKEN }}
       - name: Setup Python and TensorFlow (Windows)
-        if: ${{ github.event.inputs.e2e == true && contains(matrix.config.label, 'Windows') }}
+        if: contains(matrix.config.label, 'Windows')
         shell: bash
         run: |
           python -m pip install --upgrade pip
