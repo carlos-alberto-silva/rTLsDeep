@@ -12,7 +12,7 @@
 #'
 #'
 #'@examples
-#'\donttest{
+#'\dontrun{
 #'# Path to las file
 #'lasfile <- system.file("extdata", "tree_c1.laz", package="rTLsDeep")
 #'
