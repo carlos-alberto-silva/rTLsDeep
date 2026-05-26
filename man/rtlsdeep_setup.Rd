@@ -4,7 +4,10 @@
 \alias{rtlsdeep_setup}
 \title{Setup python and tensorflow environment}
 \usage{
-rtlsdeep_setup()
+rtlsdeep_setup(python_version = "3.12")
+}
+\arguments{
+\item{python_version}{Character string with Python version to install if not found. Default: "3.12".}
 }
 \value{
 Nothing

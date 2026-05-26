@@ -33,64 +33,66 @@ Returns a character string with the prediction classes.
 This function predicts post-hurricane individual tree-level damage from TLS derived 2D images
 }
 \examples{
-\donttest{
-# Set directory to tensorflow (python environment)
-# This is required if running deep learning local computer with GPU
-# Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = NA
+\dontrun{
+ # Set directory to tensorflow (python environment)
+ # This is required if running deep learning local computer with GPU
+ # Guide to install here: https://doi.org/10.5281/zenodo.3929709
+ tensorflow_dir = NA
 
-# define model type
-model_type = "simple"
-#model_type = "vgg"
-#model_type = "inception"
-#model_type = "resnet"
-#model_type = "densenet"
-#model_type = "efficientnet"
+ # define model type
+ model_type = "simple"
+ #model_type = "vgg"
+ #model_type = "inception"
+ #model_type = "resnet"
+ #model_type = "densenet"
+ #model_type = "efficientnet"
 
-train_image_files_path = system.file('extdata', 'train', package='rTLsDeep')
-test_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
-img_width <- 256
-img_height <- 256
-class_list_train = unique(list.files(train_image_files_path))
-class_list_test = unique(list.files(test_image_files_path))
-lr_rate = 0.0001
-target_size <- c(img_width, img_height)
-channels = 4
-batch_size = 8L
-epochs = 20L
+  # Image and model properties
+  # path to image folders - black
+ train_image_files_path = system.file('extdata', 'train', package='rTLsDeep')
+ test_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
+ img_width <- 256
+ img_height <- 256
+ class_list_train = unique(list.files(train_image_files_path))
+ class_list_test = unique(list.files(test_image_files_path))
+ lr_rate = 0.0001
+ target_size <- c(img_width, img_height)
+ channels = 4
+ batch_size = 8L
+ epochs = 20L
 
-# get model
-rtlsdeep_setup()
-model = get_dl_model(model_type=model_type,
-                    img_width=img_width,
-                    img_height=img_height,
-                    lr_rate = lr_rate,
-                    tensorflow_dir = tensorflow_dir,
-                    channels = channels,
-                    class_list = class_list_train)
-
-
-# train model and return best weights
-weights = fit_dl_model(model = model,
-                                train_input_path = train_image_files_path,
-                                test_input_path = test_image_files_path,
-                                target_size = target_size,
-                                batch_size = batch_size,
-                                class_list = class_list_train,
-                                epochs = epochs,
-                                lr_rate = lr_rate)
+ # get model
+ rtlsdeep_setup()
+ model = get_dl_model(model_type=model_type,
+                      img_width=img_width,
+                      img_height=img_height,
+                      lr_rate = lr_rate,
+                      tensorflow_dir = tensorflow_dir,
+                      channels = channels,
+                      class_list = class_list_train)
 
 
-# Predicting post-hurricane damage at the tree-level
-tree_damage<-predict_treedamage(model=model,
-                           input_file_path=test_image_files_path,
-                           weights=weights,
-                           target_size = c(256,256),
-                           class_list=class_list_test,
-                           batch_size = batch_size)
+ # train model and return best weights
+ weights = fit_dl_model(model = model,
+                              train_input_path = train_image_files_path,
+                              test_input_path = test_image_files_path,
+                              target_size = target_size,
+                              batch_size = batch_size,
+                              class_list = class_list_train,
+                              epochs = epochs,
+                              lr_rate = lr_rate)
 
-unlink('epoch_history', recursive = TRUE)
-unlink('weights', recursive = TRUE)
-unlink('weights_r_save', recursive = TRUE)
+
+ # Predicting post-hurricane damage at the tree-level
+ tree_damage<-predict_treedamage(model=model,
+                        input_file_path=test_image_files_path,
+                        weights=weights,
+                        target_size = c(256,256),
+                        class_list=class_list_test,
+                        batch_size = batch_size)
+
+ unlink('epoch_history', recursive = TRUE)
+ unlink('weights', recursive = TRUE)
+ unlink('weights_r_save', recursive = TRUE)
 }
 }

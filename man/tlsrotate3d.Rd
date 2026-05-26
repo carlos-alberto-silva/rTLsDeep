@@ -23,7 +23,7 @@ Returns an object of class LAS containing the rotated 3d point cloud.
 This function rotates TLS-derived 3D Point Clouds
 }
 \examples{
-\donttest{
+\dontrun{
 # Path to las file
 lasfile <- system.file("extdata", "tree_c1.laz", package="rTLsDeep")
 

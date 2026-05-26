@@ -19,7 +19,8 @@ Imports:
   ggplot2,
   grDevices,
   lidR,
-  keras,
+  keras3,
+  magrittr,
   matrixStats,
   reticulate,
   rgl,
@@ -27,7 +28,8 @@ Imports:
   tensorflow
 Suggests:
   terra,
+  testthat,
   viridis
-RoxygenNote: 7.2.3
 URL: https://github.com/carlos-alberto-silva/rTLsDeep
 BugReports: https://github.com/carlos-alberto-silva/rTLsDeep/issues
+Config/roxygen2/version: 8.0.0

@@ -4,9 +4,12 @@
 \name{rTLsDeep-package}
 \alias{rTLsDeep}
 \alias{rTLsDeep-package}
-\title{rTLsDeep: Post-Hurricane Damage Severity Classification from TLS and AI}
+\title{rTLsDeep: Set of tools for post-hurricane individual tree-level damage classification from terrestrial laser scanning and deep learning.}
 \description{
-Terrestrial laser scanning (TLS) data processing and post-hurricane damage severity classification at the individual tree level using deep Learning. Further details were published in Klauberg et al. (2023) \doi{10.3390/rs15041165}.
+The rTLSDeep package provides options for:
+i) rotating and deriving 2D images from TLS 3D point clouds
+ii) calibrating and validating convolutional neural network (CNN) architectures and
+iii) predicting post-hurricane damage severity at the individual tree level
 }
 \seealso{
 Useful links:
@@ -21,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Caio Hamamura \email{caiohamamura@gmail.com} [contributor]
   \item Carine Klauberg \email{carine_klauberg@hotmail.com}
   \item Ricardo Dalagnol \email{r.valbuena@bangor.ac.uk} [copyright holder]
   \item Matheus Ferreira [contributor]

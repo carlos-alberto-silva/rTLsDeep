@@ -37,39 +37,41 @@ This function selects and returns the deep learning approach to be used with the
 post-hurricane individual tree-level damage classification.
 }
 \examples{
-\donttest{
-# Set directory to tensorflow (python environment)
-# This is required if running deep learning local computer with GPU
-# Guide to install here: https://doi.org/10.5281/zenodo.3929709
-tensorflow_dir = NA
+\dontrun{
+ # Set directory to tensorflow (python environment)
+ # This is required if running deep learning local computer with GPU
+ # Guide to install here: https://doi.org/10.5281/zenodo.3929709
+ tensorflow_dir = NA
 
-# define model type
-model_type = "simple"
-#model_type = "vgg"
-#model_type = "inception"
-#model_type = "resnet"
-#model_type = "densenet"
-#model_type = "efficientnet"
+ # define model type
+ model_type = "simple"
+ #model_type = "vgg"
+ #model_type = "inception"
+ #model_type = "resnet"
+ #model_type = "densenet"
+ #model_type = "efficientnet"
 
-train_image_files_path = system.file('extdata', 'train', package='rTLsDeep')
-test_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
-img_width <- 256
-img_height <- 256
-class_list_train = unique(list.files(train_image_files_path))
-class_list_test = unique(list.files(test_image_files_path))
-lr_rate = 0.0001
-target_size <- c(img_width, img_height)
-channels = 4
+  # Image and model properties
+  # path to image folders - black
+ train_image_files_path = system.file('extdata', 'train', package='rTLsDeep')
+ test_image_files_path = system.file('extdata', 'validation', package='rTLsDeep')
+ img_width <- 256
+ img_height <- 256
+ class_list_train = unique(list.files(train_image_files_path))
+ class_list_test = unique(list.files(test_image_files_path))
+ lr_rate = 0.0001
+ target_size <- c(img_width, img_height)
+ channels = 4
 
-# get model
-rtlsdeep_setup()
-model = get_dl_model(model_type=model_type,
-                    img_width=img_width,
-                    img_height=img_height,
-                    channels=channels,
-                    lr_rate = lr_rate,
-                    tensorflow_dir = tensorflow_dir,
-                    class_list = class_list_train)
+ # get model
+ rtlsdeep_setup()
+ model = get_dl_model(model_type=model_type,
+                      img_width=img_width,
+                      img_height=img_height,
+                      channels=channels,
+                      lr_rate = lr_rate,
+                      tensorflow_dir = tensorflow_dir,
+                      class_list = class_list_train)
 }
 
 }
